@@ -8,6 +8,4 @@
 /dataSources.local.xml
 # Zeppelin ignored files
 /ZeppelinRemoteNotebooks/
-/jpa-buddy.xml
-/vcs.xml
-/setting.xml
+
