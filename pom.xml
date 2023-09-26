@@ -11,6 +11,7 @@
     <modules>
         <module>leave-dependencies</module>
         <module>leave-system</module>
+        <module>leave-service</module>
     </modules>
 
     <properties>
