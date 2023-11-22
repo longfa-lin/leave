@@ -42,19 +42,19 @@ public class PersonApi {
     }
 
     @DeleteMapping("/{personId}")
-    public Response delete(@PathVariable String personId) {
+    public Response delete(@PathVariable Long personId) {
         personApplicationService.deleteById(personId);
         return Response.ok();
     }
 
     @GetMapping("/{personId}")
-    public Response get(@PathVariable String personId) {
+    public Response get(@PathVariable Long personId) {
         Person person = personApplicationService.findById(personId);
         return Response.ok(PersonAssembler.toDTO(person));
     }
 
     @GetMapping("/findFirstApprover")
-    public Response findFirstApprover(@RequestParam String applicantId, @RequestParam int leaderMaxLevel) {
+    public Response findFirstApprover(@RequestParam Long applicantId, @RequestParam Integer leaderMaxLevel) {
         Person person = personApplicationService.findFirstApprover(applicantId, leaderMaxLevel);
         return Response.ok(PersonAssembler.toDTO(person));
     }

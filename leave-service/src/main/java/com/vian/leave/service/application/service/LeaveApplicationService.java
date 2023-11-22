@@ -51,15 +51,15 @@ public class LeaveApplicationService{
         leaveDomainService.submitApproval(leave, Approver.fromPerson(approver));
     }
 
-    public Leave getLeaveInfo(String leaveId){
+    public Leave getLeaveInfo(Long leaveId){
         return leaveDomainService.getLeaveInfo(leaveId);
     }
 
-    public List<Leave> queryLeaveInfosByApplicant(String applicantId){
+    public List<Leave> queryLeaveInfosByApplicant(Long applicantId){
         return leaveDomainService.queryLeaveInfosByApplicant(applicantId);
     }
 
-    public List<Leave> queryLeaveInfosByApprover(String approverId){
+    public List<Leave> queryLeaveInfosByApprover(Long approverId){
         return leaveDomainService.queryLeaveInfosByApprover(approverId);
     }
 }

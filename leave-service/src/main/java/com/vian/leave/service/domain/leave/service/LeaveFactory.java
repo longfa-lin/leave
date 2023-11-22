@@ -1,6 +1,9 @@
 package com.vian.leave.service.domain.leave.service;
 
 import com.alibaba.fastjson.JSON;
+import com.mybatisflex.core.keygen.KeyGenerators;
+import com.mybatisflex.core.keygen.impl.FlexIDKeyGenerator;
+import com.mybatisflex.core.keygen.impl.SnowFlakeIDKeyGenerator;
 import com.vian.leave.service.domain.leave.entity.ApprovalInfo;
 import com.vian.leave.service.domain.leave.entity.Leave;
 import com.vian.leave.service.domain.leave.entity.valueobject.Applicant;
@@ -9,7 +12,9 @@ import com.vian.leave.service.domain.leave.event.LeaveEvent;
 import com.vian.leave.service.domain.leave.repository.po.ApprovalInfoPO;
 import com.vian.leave.service.domain.leave.repository.po.LeaveEventPO;
 import com.vian.leave.service.domain.leave.repository.po.LeavePO;
+import org.springframework.cloud.commons.util.IdUtils;
 import org.springframework.stereotype.Service;
+import org.yaml.snakeyaml.events.Event;
 
 import java.util.List;
 import java.util.UUID;
@@ -20,7 +25,7 @@ public class LeaveFactory {
 
     public LeavePO createLeavePO(Leave leave) {
         LeavePO leavePO = new LeavePO();
-        leavePO.setId(UUID.randomUUID().toString());
+        leavePO.setId(new SnowFlakeIDKeyGenerator().nextId());
         leavePO.setApplicantId(leave.getApplicant().getPersonId());
         leavePO.setApplicantName(leave.getApplicant().getPersonName());
         leavePO.setApproverId(leave.getApprover().getPersonId());
@@ -51,7 +56,7 @@ public class LeaveFactory {
         return leave;
     }
 
-    public LeaveEventPO createLeaveEventPO(LeaveEvent leaveEvent){
+    public LeaveEventPO createLeaveEventPO(LeaveEvent leaveEvent) {
         LeaveEventPO eventPO = new LeaveEventPO();
         eventPO.setLeaveEventType(leaveEvent.getLeaveEventType());
         eventPO.setSource(leaveEvent.getSource());
@@ -67,7 +72,7 @@ public class LeaveFactory {
                 .collect(Collectors.toList());
     }
 
-    private ApprovalInfoPO approvalInfoPOFromDO(ApprovalInfo approvalInfo){
+    private ApprovalInfoPO approvalInfoPOFromDO(ApprovalInfo approvalInfo) {
         ApprovalInfoPO po = new ApprovalInfoPO();
         po.setApproverId(approvalInfo.getApprover().getPersonId());
         po.setApproverLevel(approvalInfo.getApprover().getLevel());
@@ -78,7 +83,7 @@ public class LeaveFactory {
         return po;
     }
 
-    private ApprovalInfo approvalInfoFromPO(ApprovalInfoPO approvalInfoPO){
+    private ApprovalInfo approvalInfoFromPO(ApprovalInfoPO approvalInfoPO) {
         ApprovalInfo approvalInfo = new ApprovalInfo();
         approvalInfo.setApprovalInfoId(approvalInfoPO.getApprovalInfoId());
         Approver approver = Approver.builder()
@@ -92,7 +97,7 @@ public class LeaveFactory {
         return approvalInfo;
     }
 
-    private List<ApprovalInfo> getApprovalInfos(List<ApprovalInfoPO> approvalInfoPOList){
+    private List<ApprovalInfo> getApprovalInfos(List<ApprovalInfoPO> approvalInfoPOList) {
         return approvalInfoPOList.stream()
                 .map(approvalInfoPO -> approvalInfoFromPO(approvalInfoPO))
                 .collect(Collectors.toList());

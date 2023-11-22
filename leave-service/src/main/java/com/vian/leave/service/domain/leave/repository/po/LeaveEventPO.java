@@ -12,11 +12,10 @@ import java.util.Date;
 @Data
 @Table("leave_event")
 public class LeaveEventPO {
-
     @Id(keyType = KeyType.Generator, value = KeyGenerators.flexId)
-    int id;
-    LeaveEventType leaveEventType;
-    Date timestamp;
-    String source;
-    String data;
+    private Long id;
+    private LeaveEventType leaveEventType;
+    private Date timestamp;
+    private String source;
+    private String data;
 }

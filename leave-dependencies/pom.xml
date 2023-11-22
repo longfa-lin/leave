@@ -24,6 +24,7 @@
         <org.projectlombok.version>1.18.28</org.projectlombok.version>
         <snakeyaml.version>2.0</snakeyaml.version>
         <mapstruct.version>1.4.2.Final</mapstruct.version>
+        <fastjson.version>1.2.67_noneautotype2</fastjson.version>
     </properties>
 
 
@@ -88,6 +89,11 @@
                 <groupId>org.mapstruct</groupId>
                 <artifactId>mapstruct-jdk8</artifactId>
                 <version>${mapstruct.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

@@ -24,13 +24,13 @@ public class PersonRepositoryImpl implements PersonRepository {
     }
 
     @Override
-    public PersonPO findById(String id) {
+    public PersonPO findById(Long id) {
 //        return personDao.findById(id).orElseThrow(() -> new RuntimeException("未找到用户"));
         return personDao.selectOneById(id);
     }
 
     @Override
-    public PersonPO findLeaderByPersonId(String personId) {
+    public PersonPO findLeaderByPersonId(Long personId) {
         return personDao.findLeaderByPersonId(personId);
     }
 

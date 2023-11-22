@@ -7,15 +7,15 @@ import java.util.List;
 @Data
 public class LeaveDTO {
 
-    String leaveId;
-    ApplicantDTO applicantDTO;
-    ApproverDTO approverDTO;
-    String leaveType;
-    ApprovalInfoDTO currentApprovalInfoDTO;
-    List<ApprovalInfoDTO> historyApprovalInfoDTOList;
-    String startTime;
-    String endTime;
-    long duration;
-    String status;
+    private Long leaveId;
+    private ApplicantDTO applicantDTO;
+    private ApproverDTO approverDTO;
+    private String leaveType;
+    private ApprovalInfoDTO currentApprovalInfoDTO;
+    private List<ApprovalInfoDTO> historyApprovalInfoDTOList;
+    private String startTime;
+    private String endTime;
+    private Long duration;
+    private String status;
 
 }

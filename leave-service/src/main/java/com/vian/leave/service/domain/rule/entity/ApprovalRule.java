@@ -6,12 +6,12 @@ import lombok.Data;
 @Data
 public class ApprovalRule {
 
-    String personType;
-    String leaveType;
-    long duration;
-    int maxLeaderLevel;
+    private String personType;
+    private String leaveType;
+    private Long duration;
+    private Integer maxLeaderLevel;
 
-    public static ApprovalRule getByLeave(Leave leave){
+    public static ApprovalRule getByLeave(Leave leave) {
         ApprovalRule rule = new ApprovalRule();
         rule.setPersonType(leave.getApplicant().getPersonType());
         rule.setLeaveType(leave.getType().toString());

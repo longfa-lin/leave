@@ -5,8 +5,8 @@ import lombok.Data;
 @Data
 public class Relationship {
 
-    String id;
-    String personId;
-    String leaderId;
-    int leaderLevel;
+    private Long id;
+    private Long personId;
+    private Long leaderId;
+    private Integer leaderLevel;
 }

@@ -19,15 +19,15 @@ public class PersonApplicationService {
         personDomainService.update(person);
     }
 
-    public void deleteById(String personId) {
+    public void deleteById(Long personId) {
         personDomainService.deleteById(personId);
     }
 
-    public Person findById(String personId) {
-        return null;
+    public Person findById(Long personId) {
+        return personDomainService.findById(personId);
     }
 
-    public Person findFirstApprover(String applicantId, int leaderMaxLevel) {
+    public Person findFirstApprover(Long applicantId, Integer leaderMaxLevel) {
         return personDomainService.findFirstApprover(applicantId, leaderMaxLevel);
     }
 

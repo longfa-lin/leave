@@ -5,9 +5,9 @@ import lombok.Data;
 @Data
 public class ApplicantDTO {
 
-    String personId;
-    String personName;
-    String leaderId;
-    String applicantType;
-    String roleLevel;
+    private Long personId;
+    private String personName;
+    private Long leaderId;
+    private String applicantType;
+    private Integer roleLevel;
 }

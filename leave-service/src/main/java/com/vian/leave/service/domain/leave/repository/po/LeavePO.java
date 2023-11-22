@@ -19,17 +19,17 @@ import java.util.List;
 public class LeavePO {
 
     @Id(keyType = KeyType.Generator, value = KeyGenerators.flexId)
-    String id;
-    String applicantId;
-    String applicantName;
-    PersonType applicantType;
-    String approverId;
-    String approverName;
-    LeaveType leaveType;
-    Status status;
-    Date startTime;
-    Date endTime;
-    long duration;
+    private Long id;
+    private Long applicantId;
+    private String applicantName;
+    private PersonType applicantType;
+    private Long approverId;
+    private String approverName;
+    private LeaveType leaveType;
+    private Status status;
+    private Date startTime;
+    private Date endTime;
+    private Long duration;
 
     @Column(ignore = true)
     List<ApprovalInfoPO> historyApprovalInfoPOList;

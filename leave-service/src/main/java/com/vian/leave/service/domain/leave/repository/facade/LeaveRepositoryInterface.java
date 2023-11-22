@@ -12,10 +12,10 @@ public interface LeaveRepositoryInterface {
 
     void saveEvent(LeaveEventPO leaveEventPO);
 
-    LeavePO findById(String id);
+    LeavePO findById(Long id);
 
-    List<LeavePO> queryByApplicantId(String applicantId);
+    List<LeavePO> queryByApplicantId(Long applicantId);
 
-    List<LeavePO> queryByApproverId(String approverId);
+    List<LeavePO> queryByApproverId(Long approverId);
 
 }

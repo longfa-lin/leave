@@ -29,7 +29,7 @@ public class LeaveRepositoryImpl implements LeaveRepositoryInterface {
         //persist leave entity
         leaveDao.insert(leavePO);
         //set leave_id for approvalInfoPO after save leavePO
-        leavePO.getHistoryApprovalInfoPOList().stream().forEach(approvalInfoPO -> approvalInfoPO.setLeaveId(leavePO.getId()));
+        leavePO.getHistoryApprovalInfoPOList().forEach(approvalInfoPO -> approvalInfoPO.setLeaveId(leavePO.getId()));
         approvalInfoDao.insertBatch(leavePO.getHistoryApprovalInfoPOList());
     }
 
@@ -38,15 +38,15 @@ public class LeaveRepositoryImpl implements LeaveRepositoryInterface {
     }
 
     @Override
-    public LeavePO findById(String id) {
+    public LeavePO findById(Long id) {
 //        return leaveDao.findById(id).orElseThrow(() -> new RuntimeException("leave not found"));
         return leaveDao.selectOneById(id);
     }
 
     @Override
-    public List<LeavePO> queryByApplicantId(String applicantId) {
+    public List<LeavePO> queryByApplicantId(Long applicantId) {
         List<LeavePO> leavePOList = leaveDao.queryByApplicantId(applicantId);
-        leavePOList.stream()
+        leavePOList
                 .forEach(leavePO -> {
                     List<ApprovalInfoPO> approvalInfoPOList = approvalInfoDao.queryByLeaveId(leavePO.getId());
                     leavePO.setHistoryApprovalInfoPOList(approvalInfoPOList);
@@ -55,9 +55,9 @@ public class LeaveRepositoryImpl implements LeaveRepositoryInterface {
     }
 
     @Override
-    public List<LeavePO> queryByApproverId(String approverId) {
+    public List<LeavePO> queryByApproverId(Long approverId) {
         List<LeavePO> leavePOList = leaveDao.queryByApproverId(approverId);
-        leavePOList.stream()
+        leavePOList
                 .forEach(leavePO -> {
                     List<ApprovalInfoPO> approvalInfoPOList = approvalInfoDao.queryByLeaveId(leavePO.getId());
                     leavePO.setHistoryApprovalInfoPOList(approvalInfoPOList);

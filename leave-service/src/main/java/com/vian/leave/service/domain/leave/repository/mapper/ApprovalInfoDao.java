@@ -8,8 +8,8 @@ import java.util.List;
 
 public interface ApprovalInfoDao extends BaseMapper<ApprovalInfoPO> {
 
-    List<LeavePO> queryByApplicantId(String applicantId);
+    List<LeavePO> queryByApplicantId(Long applicantId);
 
-    List<ApprovalInfoPO> queryByLeaveId(String leaveId);
+    List<ApprovalInfoPO> queryByLeaveId(Long leaveId);
 
 }

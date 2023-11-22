@@ -10,14 +10,14 @@ import java.util.List;
 @Data
 public class Person {
 
-    String personId;
-    String personName;
-    PersonType personType;
-    List<Relationship> relationships;
-    int roleLevel;
-    Date createTime;
-    Date lastModifyTime;
-    PersonStatus status;
+    private Long personId;
+    private String personName;
+    private PersonType personType;
+    private List<Relationship> relationships;
+    private Integer roleLevel;
+    private Date createTime;
+    private Date lastModifyTime;
+    private PersonStatus status;
 
     public Person create() {
         this.createTime = new Date();

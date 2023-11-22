@@ -8,10 +8,10 @@ import lombok.Data;
 @Data
 public class ApprovalInfo {
 
-    String approvalInfoId;
-    Approver approver;
-    ApprovalType approvalType;
-    String msg;
-    long time;
+    private Long approvalInfoId;
+    private Approver approver;
+    private ApprovalType approvalType;
+    private String msg;
+    private Long time;
 
 }

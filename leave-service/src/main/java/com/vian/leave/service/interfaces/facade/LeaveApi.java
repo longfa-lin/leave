@@ -42,7 +42,7 @@ public class LeaveApi {
     }
 
     @PostMapping("/{leaveId}")
-    public Response findById(@PathVariable String leaveId){
+    public Response findById(@PathVariable Long leaveId){
         Leave leave = leaveApplicationService.getLeaveInfo(leaveId);
         return Response.ok(LeaveAssembler.toDTO(leave));
     }
@@ -53,9 +53,9 @@ public class LeaveApi {
      * @return
      */
     @PostMapping("/query/applicant/{applicantId}")
-    public Response queryByApplicant(@PathVariable String applicantId){
+    public Response queryByApplicant(@PathVariable Long applicantId){
         List<Leave> leaveList = leaveApplicationService.queryLeaveInfosByApplicant(applicantId);
-        List<LeaveDTO> leaveDTOList = leaveList.stream().map(leave -> LeaveAssembler.toDTO(leave)).collect(Collectors.toList());
+        List<LeaveDTO> leaveDTOList = leaveList.stream().map(LeaveAssembler::toDTO).collect(Collectors.toList());
         return Response.ok(leaveDTOList);
     }
 
@@ -65,9 +65,9 @@ public class LeaveApi {
      * @return
      */
     @PostMapping("/query/approver/{approverId}")
-    public Response queryByApprover(@PathVariable String approverId){
+    public Response queryByApprover(@PathVariable Long approverId){
         List<Leave> leaveList = leaveApplicationService.queryLeaveInfosByApprover(approverId);
-        List<LeaveDTO> leaveDTOList = leaveList.stream().map(leave -> LeaveAssembler.toDTO(leave)).collect(Collectors.toList());
+        List<LeaveDTO> leaveDTOList = leaveList.stream().map(LeaveAssembler::toDTO).collect(Collectors.toList());
         return Response.ok(leaveDTOList);
     }
 }

@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface LeaveDao extends BaseMapper<LeavePO> {
 
-    List<LeavePO> queryByApplicantId(String applicantId);
+    List<LeavePO> queryByApplicantId(Long applicantId);
 
-    List<LeavePO> queryByApproverId(String approverId);
+    List<LeavePO> queryByApproverId(Long approverId);
 }

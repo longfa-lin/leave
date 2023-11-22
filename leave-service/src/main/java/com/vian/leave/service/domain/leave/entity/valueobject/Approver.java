@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 // 审批人值对象
 @Data
 @AllArgsConstructor
@@ -12,11 +13,11 @@ import lombok.NoArgsConstructor;
 @Builder
 public class Approver {
 
-    String personId;
-    String personName;
-    int level;
+    private Long personId;
+    private String personName;
+    private Integer level;
 
-    public static Approver fromPerson(Person person){
+    public static Approver fromPerson(Person person) {
         Approver approver = new Approver();
         approver.setPersonId(person.getPersonId());
         approver.setPersonName(person.getPersonName());

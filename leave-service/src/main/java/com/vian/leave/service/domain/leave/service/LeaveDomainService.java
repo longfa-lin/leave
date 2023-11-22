@@ -71,19 +71,19 @@ public class LeaveDomainService {
         eventPublisher.publish(event);
     }
 
-    public Leave getLeaveInfo(String leaveId) {
+    public Leave getLeaveInfo(Long leaveId) {
         LeavePO leavePO = leaveRepositoryInterface.findById(leaveId);
         return leaveFactory.getLeave(leavePO);
     }
 
-    public List<Leave> queryLeaveInfosByApplicant(String applicantId) {
+    public List<Leave> queryLeaveInfosByApplicant(Long applicantId) {
         List<LeavePO> leavePOList = leaveRepositoryInterface.queryByApplicantId(applicantId);
         return leavePOList.stream()
                 .map(leavePO -> leaveFactory.getLeave(leavePO))
                 .collect(Collectors.toList());
     }
 
-    public List<Leave> queryLeaveInfosByApprover(String approverId) {
+    public List<Leave> queryLeaveInfosByApprover(Long approverId) {
         List<LeavePO> leavePOList = leaveRepositoryInterface.queryByApproverId(approverId);
         return leavePOList.stream()
                 .map(leavePO -> leaveFactory.getLeave(leavePO))

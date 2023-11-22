@@ -5,7 +5,7 @@ import com.vian.leave.service.infrastructure.common.api.Response;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 
-@FeignClient(name = "auth-service", path = "/demo/auth")
+@FeignClient(name = "auth-service", path = "/auth")
 public interface AuthFeignClient {
 
     @PostMapping(value = "/login")

@@ -16,27 +16,27 @@ import java.util.List;
 @Data
 public class Leave {
 
-    String id;
+    private Long id;
     // 请假申请人值对象
-    Applicant applicant;
+    private Applicant applicant;
     // 审批人值对象
-    Approver approver;
+    private Approver approver;
     // 请假类型
-    LeaveType type;
+    private LeaveType type;
     // 状态
-    Status status;
+    private Status status;
     // 开始时间
-    Date startTime;
+    private Date startTime;
     // 结束时间
-    Date endTime;
+    private Date endTime;
     // 时长
-    long duration;
+    private Long duration;
     //审批领导的最大级别
-    int leaderMaxLevel;
+    private Integer leaderMaxLevel;
     // 当前审批意见实体
-    ApprovalInfo currentApprovalInfo;
+    private ApprovalInfo currentApprovalInfo;
     // 历史审批意见
-    List<ApprovalInfo> historyApprovalInfos;
+    private List<ApprovalInfo> historyApprovalInfos;
 
     public long getDuration() {
         return endTime.getTime() - startTime.getTime();
@@ -49,26 +49,26 @@ public class Leave {
         return this;
     }
 
-    public Leave create(){
+    public Leave create() {
         this.setStatus(Status.APPROVING);
         this.setStartTime(new Date());
         return this;
     }
 
-    public Leave agree(Approver nextApprover){
+    public Leave agree(Approver nextApprover) {
         this.setStatus(Status.APPROVING);
         this.setApprover(nextApprover);
         return this;
     }
 
-    public Leave reject(Approver approver){
+    public Leave reject(Approver approver) {
         this.setApprover(approver);
         this.setStatus(Status.REJECTED);
         this.setApprover(null);
         return this;
     }
 
-    public Leave finish(){
+    public Leave finish() {
         this.setApprover(null);
         this.setStatus(Status.APPROVED);
         this.setEndTime(new Date());

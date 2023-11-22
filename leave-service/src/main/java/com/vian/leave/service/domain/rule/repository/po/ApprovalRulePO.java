@@ -14,9 +14,9 @@ import lombok.Data;
 public class ApprovalRulePO {
 
     @Id(keyType = KeyType.Generator, value = KeyGenerators.flexId)
-    String id;
-    LeaveType leaveType;
-    PersonType personType;
-    long duration;
-    String applicantRoleId;
+    private Long id;
+    private LeaveType leaveType;
+    private PersonType personType;
+    private Long duration;
+    private Integer maxLeaderLevel;
 }

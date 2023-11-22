@@ -33,14 +33,14 @@ public class PersonDomainService {
         personRepository.update(personFactory.createPersonPO(person));
     }
 
-    public void deleteById(String personId) {
+    public void deleteById(Long personId) {
         PersonPO personPO = personRepository.findById(personId);
         Person person = personFactory.getPerson(personPO);
         person.disable();
         personRepository.update(personFactory.createPersonPO(person));
     }
 
-    public Person findById(String userId) {
+    public Person findById(Long userId) {
         PersonPO personPO = personRepository.findById(userId);
         return personFactory.getPerson(personPO);
     }
@@ -52,7 +52,7 @@ public class PersonDomainService {
      * @param leaderMaxLevel
      * @return
      */
-    public Person findFirstApprover(String applicantId, int leaderMaxLevel) {
+    public Person findFirstApprover(Long applicantId, Integer leaderMaxLevel) {
         PersonPO leaderPO = personRepository.findLeaderByPersonId(applicantId);
         if (leaderPO.getRoleLevel() > leaderMaxLevel) {
             return null;
@@ -68,7 +68,7 @@ public class PersonDomainService {
      * @param leaderMaxLevel
      * @return
      */
-    public Person findNextApprover(String currentApproverId, int leaderMaxLevel) {
+    public Person findNextApprover(Long currentApproverId, int leaderMaxLevel) {
         PersonPO leaderPO = personRepository.findLeaderByPersonId(currentApproverId);
         if (leaderPO.getRoleLevel() > leaderMaxLevel) {
             return null;

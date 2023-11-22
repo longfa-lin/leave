@@ -5,11 +5,11 @@ import lombok.Data;
 @Data
 public class PersonDTO {
 
-    String personId;
-    String personName;
-    String roleId;
-    String personType;
-    String createTime;
-    String lastModifyTime;
-    String status;
+    private Long personId;
+    private String personName;
+    private Long roleId;
+    private String personType;
+    private String createTime;
+    private String lastModifyTime;
+    private String status;
 }

@@ -5,8 +5,8 @@ import lombok.Data;
 @Data
 public class ApprovalInfoDTO {
 
-    String approvalInfoId;
-    ApproverDTO approverDTO;
-    String msg;
-    long time;
+    private Long approvalInfoId;
+    private ApproverDTO approverDTO;
+    private String msg;
+    private Long time;
 }

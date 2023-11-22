@@ -9,8 +9,8 @@ public interface PersonRepository {
 
     void update(PersonPO personPO);
 
-    PersonPO findById(String id);
+    PersonPO findById(Long id);
 
-    PersonPO findLeaderByPersonId(String personId);
+    PersonPO findLeaderByPersonId(Long personId);
 
 }

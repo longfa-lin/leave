@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 // 请假申请人值对象
 @Data
 @Builder
@@ -11,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Applicant {
 
-    String personId;
-    String personName;
-    String personType;
+    private Long personId;
+    private String personName;
+    private String personType;
 }
