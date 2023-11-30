@@ -7,7 +7,7 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: vian.nacos.cn:80
+        server-addr: 10.0.148.223:8848
         username: nacos
         password: nacos
         namespace: public

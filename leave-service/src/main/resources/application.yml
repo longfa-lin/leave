@@ -7,13 +7,13 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: vian.nacos.cn
+        server-addr: 10.0.148.223:8848
         username: nacos
         password: nacos
         namespace: public
     sentinel:
       transport:
-        dashboard: localhost:18080
+        dashboard: 10.0.148.223:8858
         client-ip: 172.16.15.245
       datasource:
         flow:
