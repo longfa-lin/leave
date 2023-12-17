@@ -7,14 +7,14 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: 10.0.148.223:8848
+        server-addr: 10.0.149.211:8848
         username: nacos
         password: nacos
         namespace: public
     sentinel:
       transport:
-        dashboard: 10.0.148.223:8858
-        client-ip: 172.16.15.245
+        dashboard: 10.0.149.211:8858
+        #client-ip: 172.16.15.245
       datasource:
         flow:
           nacos:
@@ -27,6 +27,6 @@ spring:
       eager: true
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://10.0.148.223:30346/db_leave?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&tinyInt1isBit=false
+    url: jdbc:mysql://10.0.148.133:30346/db_leave?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&tinyInt1isBit=false
     username: root
     password: 1qazxsw2
