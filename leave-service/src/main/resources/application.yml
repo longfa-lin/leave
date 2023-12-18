@@ -5,15 +5,18 @@ spring:
   application:
     name: leave-service
   cloud:
+    # 该配置解决启动报 Cannot determine local hostname错误问题
+    inetutils:
+      ignored-interfaces: 'TAP-Windows Adapter V9'
     nacos:
       discovery:
-        server-addr: 10.0.148.223:8848
+        server-addr: single.nacos.cn:8848
         username: nacos
-        password: nacos
+        password: 1qazxsw2
         namespace: public
     sentinel:
       transport:
-        dashboard: localhost:8080
+        dashboard: single.sentinel.cn:8858
         client-ip: 172.16.15.245
       datasource:
         flow:
@@ -30,8 +33,8 @@ spring:
             data-id: ${spring.application.name}-degrade-rules
             group-id: DEFAULT_GROUP
             rule-type: degrade
-      #            username: ${spring.cloud.nacos.discovery.username}
-      #            password: ${spring.cloud.nacos.discovery.password}
+            username: ${spring.cloud.nacos.discovery.username}
+            password: ${spring.cloud.nacos.discovery.password}
       eager: true
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver

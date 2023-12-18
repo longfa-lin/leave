@@ -7,12 +7,12 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: 10.0.148.223:8848
+        server-addr: single.nacos.cn:8848
         username: nacos
-        password: nacos
+        password: 1qazxsw2
         namespace: public
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://10.0.148.223:30346/db_leave?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&tinyInt1isBit=false
+    url: jdbc:mysql://10.0.148.133:30346/db_leave?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&tinyInt1isBit=false
     username: root
     password: 1qazxsw2

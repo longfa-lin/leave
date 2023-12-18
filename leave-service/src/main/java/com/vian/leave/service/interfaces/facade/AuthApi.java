@@ -35,6 +35,16 @@ public class AuthApi {
         return null;
     }
 
+    /**
+     * //handleException配置后，fallback配置会失效
+     *
+     * @param personDTO:
+     * @param exception:
+     * @return com.vian.leave.service.infrastructure.common.api.Response
+     * @methodName handleException
+     * @author: lin long fa
+     * @date: 2023/12/18 11:45
+     **/
     public Response handleException(PersonDTO personDTO, BlockException exception) {
         log.info("flow exception:{}", exception.getClass().getCanonicalName());
         return Response.failed("达到阈值了，请休息一会儿");
