@@ -24,7 +24,7 @@ public class AuthApi {
     LoginApplicationService loginApplicationService;
 
     @PostMapping("/login")
-    @SentinelResource(value = "login", blockHandler = "handleException")
+    @SentinelResource(value = "login", blockHandler = "handleException", fallback = "fallbackHandler")
     public Response login(@RequestBody PersonDTO personDTO) {
         try {
             return loginApplicationService.login(PersonAssembler.toDO(personDTO));
@@ -35,8 +35,16 @@ public class AuthApi {
         return null;
     }
 
-    public Response handleException(PersonDTO personDTO, BlockException exception){
-        log.info("flow exception:{}",exception.getClass().getCanonicalName());
+    public Response handleException(PersonDTO personDTO, BlockException exception) {
+        log.info("flow exception:{}", exception.getClass().getCanonicalName());
         return Response.failed("达到阈值了，请休息一会儿");
+    }
+
+    /**
+     * 自定义熔断异常
+     * 返回值和参数要跟目标函数一样
+     */
+    public Response fallbackHandler(String productCode) {
+        return Response.failed("服务被熔断了，不要调用!");
     }
 }
