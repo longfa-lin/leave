@@ -26,6 +26,8 @@
         <mapstruct.version>1.4.2.Final</mapstruct.version>
         <fastjson.version>1.2.67_noneautotype2</fastjson.version>
         <caffeine.version>3.1.5</caffeine.version>
+        <knife4j.version>4.0.0</knife4j.version>
+        <hutool.version>5.8.18</hutool.version>
     </properties>
 
 
@@ -56,6 +58,13 @@
                 <groupId>com.mybatis-flex</groupId>
                 <artifactId>mybatis-flex-dependencies</artifactId>
                 <version>${mybatis-flex.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.github.xiaoymin</groupId>
+                <artifactId>knife4j-dependencies</artifactId>
+                <version>4.4.0-SNAPSHOT</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -101,6 +110,11 @@
                 <artifactId>caffeine</artifactId>
                 <version>${caffeine.version}</version>
             </dependency>
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>${hutool.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -111,12 +125,22 @@
             <name>aliyun</name>
             <url>https://maven.aliyun.com/repository/public</url>
         </repository>
+        <repository>
+            <id>nexus-maven</id>
+            <name>nexus-maven</name>
+            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+        </repository>
     </repositories>
     <pluginRepositories>
         <pluginRepository>
             <id>aliyun</id>
             <name>aliyun</name>
             <url>https://maven.aliyun.com/repository/public</url>
+        </pluginRepository>
+        <pluginRepository>
+            <id>nexus-maven</id>
+            <name>nexus-maven</name>
+            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
         </pluginRepository>
     </pluginRepositories>
 
