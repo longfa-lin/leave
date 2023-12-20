@@ -12,6 +12,7 @@
         <module>leave-dependencies</module>
         <module>leave-service</module>
         <module>auth-service</module>
+        <module>gateway-service</module>
     </modules>
 
     <properties>

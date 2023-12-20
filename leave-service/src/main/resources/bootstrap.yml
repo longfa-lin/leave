@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: leave-service
+  profiles:
+    active: dev
+  cloud:
+    nacos:
+      config:
+        file-extension: yml
+        server-addr: single.nacos.cn:8848
+        username: nacos
+        password: 1qazxsw2
+        namespace: DEV
+        group: leave
+#logging:
+#  level:
+#    root: info
