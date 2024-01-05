@@ -30,6 +30,10 @@ sentinel流控和熔断处理，blockHandler和fallback
 blockHandler优先级高于fallback，即设置了blockHandler之后，设置fallback无效
 但是fallback可用于处理特定异常的弥补程序
 
+#### gateway-sentinel-nacos实现网关限流
+##### 注意事项：
+1. 在nacos配置sentinel时，rule-type:网关限流为-gw-flow  api限流为 gw-api-group,具体可见com.alibaba.cloud.sentinel.datasource下的RuleType.class
+
 #### 关于对接knife4j
 ##### 对接
 源码地址url:https://gitee.com/xiaoym/knife4j

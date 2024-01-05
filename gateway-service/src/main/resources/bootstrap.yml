@@ -12,6 +12,8 @@ spring:
         password: 1qazxsw2
         namespace: DEV
         group: gateway
+  main:
+    allow-bean-definition-overriding: true
 logging:
   level:
     org.springframework.cloud.gateway: DEBUG
