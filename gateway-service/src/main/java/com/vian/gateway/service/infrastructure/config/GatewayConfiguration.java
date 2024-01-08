@@ -34,13 +34,16 @@ public class GatewayConfiguration {
         this.serverCodecConfigurer = serverCodecConfigurer;
     }
 
-    /**
-     * 注入自定义网关异常
-     */
     @Bean
     @Order(Ordered.HIGHEST_PRECEDENCE)
     public CustomGatewayBlockExceptionHandler sentinelGatewayBlockExceptionHandler() {
-        // Register the custom block exception handler .
+        // Register the block exception handler for Spring Cloud Gateway.
         return new CustomGatewayBlockExceptionHandler(viewResolvers, serverCodecConfigurer);
+    }
+
+    @Bean
+    @Order(-1)
+    public GlobalFilter sentinelGatewayFilter() {
+        return new SentinelGatewayFilter();
     }
 }
