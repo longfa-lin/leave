@@ -1,6 +1,7 @@
 ## 请假微服务系统
 
 ### 架构设计
+
 1. DDD微服务软件架构设计
 2. 采用spring cloud alibaba微服务组件，nacos、openfeign、spring cloud gateway
 3. 数据库:mysql
@@ -16,6 +17,7 @@ sentinel部署如果部署在服务器上，本地联调会有问题，这个跟
 程序启动后，会注册到sentinel中，而后sentinel服务会访问注册的地址，进行流量等监控，因为本地地址是内网地址，故会出现服务拉取不到相关数据的问题
 
 sentinel window 10 本地以后台服务方式运行相关操作：
+
 ```
 下载NSSM：访问 NSSM https://nssm.cc/ 下载适合您Windows版本的NSSM。
 安装服务：打开命令提示符（以管理员身份），使用NSSM安装您的Java应用程序作为服务：
@@ -26,14 +28,39 @@ nssm status YourServiceName ==>  查看状态
 nssm stop YourServiceName  ==> 停止服务
 管理服务：您可以使用 services.msc 来管理服务，或者使用NSSM的命令来停止、重启服务。
 ```
+
 sentinel流控和熔断处理，blockHandler和fallback
 blockHandler优先级高于fallback，即设置了blockHandler之后，设置fallback无效
 但是fallback可用于处理特定异常的弥补程序
 
 #### gateway-sentinel-nacos实现网关限流
-##### 注意事项：
-1. 在nacos配置sentinel时，rule-type:网关限流为-gw-flow  api限流为 gw-api-group,具体可见com.alibaba.cloud.sentinel.datasource下的RuleType.class
 
+##### 注意事项：
+
+1. 在nacos配置sentinel时，rule-type:网关限流为-gw-flow api限流为
+   gw-api-group,具体可见com.alibaba.cloud.sentinel.datasource下的RuleType.class
+2. 对于BlockRequest有两种方式，具体说明地址：https://github.com/alibaba/spring-cloud-alibaba/tree/2022.x/spring-cloud-alibaba-examples/sentinel-example/sentinel-spring-cloud-gateway-example/src/main/java/com/alibaba/cloud/examples
+   
+   a. 通过配置的方式：
+    ```
+   scg.fallback:
+     mode: response
+     response-status: 444
+     response-body: 1234
+   scg:
+     order: -100
+   ```
+   b.通过代码开发
+   ```
+   @Configuration
+   public class MySCGConfiguration {
+     @Bean
+     public BlockRequestHandler blockRequestHandler() {
+       return (exchange, t) -> ServerResponse.status(444).contentType(MediaType.APPLICATION_JSON)
+       .body(fromValue("SCS Sentinel block"));
+     }
+   }
+   ```
 #### 关于对接knife4j
 ##### 对接
 源码地址url:https://gitee.com/xiaoym/knife4j
@@ -42,6 +69,7 @@ blockHandler优先级高于fallback，即设置了blockHandler之后，设置fal
 引入方式：
 maven bom方式:
 ```
+
 <dependencyManagement>
     <dependencies>
         <dependency>
@@ -126,7 +154,9 @@ public class SwaggerConfig {
                         .license(new License().name("Apache 2.0")
                                 .url("http://doc.xiaominfo.com")));
     }
+
 }
+
 ```
 网关集成通过Spring Cloud Gateway网关聚合
 相关文件说明url:https://doc.xiaominfo.com/docs/middleware-sources/spring-cloud-gateway/spring-gateway-introduction

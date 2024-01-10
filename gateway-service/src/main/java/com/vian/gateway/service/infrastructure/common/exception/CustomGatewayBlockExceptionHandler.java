@@ -6,6 +6,8 @@ import com.alibaba.csp.sentinel.util.function.Supplier;
 import com.alibaba.fastjson.JSON;
 import com.vian.gateway.service.infrastructure.common.api.Response;
 import org.springframework.core.io.buffer.DataBuffer;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.codec.HttpMessageWriter;
 import org.springframework.http.codec.ServerCodecConfigurer;
 import org.springframework.http.server.reactive.ServerHttpResponse;
@@ -30,6 +32,7 @@ public class CustomGatewayBlockExceptionHandler implements WebExceptionHandler {
     private Mono<Void> writeResponse(ServerResponse response, ServerWebExchange exchange) {
 //        return response.writeTo(exchange, contextSupplier.get());
         ServerHttpResponse serverHttpResponse = exchange.getResponse();
+        serverHttpResponse.setStatusCode(HttpStatus.NOT_ACCEPTABLE);
         serverHttpResponse.getHeaders().add("Content-Type", "application/json;charset=UTF-8");
 //        ResultData<Object> resultData = ResultData.fail(ReturnCode.RC200.getCode(), ReturnCode.RC200.getMessage());
         Response resultData = Response.failed("网关服务限流保护,请稍后再试!");
