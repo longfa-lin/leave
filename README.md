@@ -40,17 +40,20 @@ blockHandler优先级高于fallback，即设置了blockHandler之后，设置fal
 1. 在nacos配置sentinel时，rule-type:网关限流为-gw-flow api限流为
    gw-api-group,具体可见com.alibaba.cloud.sentinel.datasource下的RuleType.class
 2. 对于BlockRequest有两种方式，具体说明地址：https://github.com/alibaba/spring-cloud-alibaba/tree/2022.x/spring-cloud-alibaba-examples/sentinel-example/sentinel-spring-cloud-gateway-example/src/main/java/com/alibaba/cloud/examples
-   
+
    a. 通过配置的方式：
-    ```
-   scg.fallback:
-     mode: response
-     response-status: 444
-     response-body: 1234
-   scg:
-     order: -100
+
    ```
+   scg.fallback:
+    mode: response
+    response-status: 444
+    response-body: 1234
+   scg:
+    order: -100
+   ```
+
    b.通过代码开发
+
    ```
    @Configuration
    public class MySCGConfiguration {
@@ -61,13 +64,17 @@ blockHandler优先级高于fallback，即设置了blockHandler之后，设置fal
      }
    }
    ```
+
 #### 关于对接knife4j
+
 ##### 对接
+
 源码地址url:https://gitee.com/xiaoym/knife4j
 官方说明文档：https://doc.xiaominfo.com/
 该版本针对 springboot 3.0以上 jdk版本>=17
 引入方式：
 maven bom方式:
+
 ```
 
 <dependencyManagement>
@@ -82,7 +89,9 @@ maven bom方式:
     </dependencies>
 </dependencyManagement>
 ```
+
 注意：该依赖阿里云仓库上没有需要添加maven中心仓库
+
 ```
 <repositories>
         <repository>
@@ -92,7 +101,9 @@ maven bom方式:
         </repository>
     </repositories>
 ```
+
 微服务端加依赖：
+
 ```
 <dependencies>
     <dependency>
@@ -101,7 +112,9 @@ maven bom方式:
     </dependency>
 </dependencies>
 ```
+
 增加config:
+
 ```java
 package com.vian.auth.service.infrastructure.config;
 import cn.hutool.core.util.RandomUtil;
@@ -158,15 +171,21 @@ public class SwaggerConfig {
 }
 
 ```
+
 网关集成通过Spring Cloud Gateway网关聚合
 相关文件说明url:https://doc.xiaominfo.com/docs/middleware-sources/spring-cloud-gateway/spring-gateway-introduction
 主要操作为：引入pom依赖，增加相关开启配置，可分为手工聚合或者服务发现聚合
+
 ##### 注意事项
-1. The OpenAPI 3 specification does not allow explicitly adding Authorization header. 
-Note: Header parameters named Accept, Content-Type and Authorization are not allowed. To describe these headers
-2. 
+
+1. The OpenAPI 3 specification does not allow explicitly adding Authorization header.
+   Note: Header parameters named Accept, Content-Type and Authorization are not allowed. To describe these headers
+2.
+
 #### spring注解比较
+
 ##### @ParameterObject 对比 @ModelAttribute
+
 ```text
 @ParameterObject 是 Spring 的一个组合注解，它在内部使用了 @ModelAttribute 或 @RequestParam，具体取决于上下文。这个注解的目的是为了减少样板代码，提高代码的可读性。当用在方法参数上时，
 它可以使得控制器的处理方法更加简洁，因为你不需要显式地标记参数是来自模型属性还是请求参数。
@@ -177,3 +196,27 @@ Note: Header parameters named Accept, Content-Type and Authorization are not all
 在 Spring Boot 2.2 及以后版本中，由于 @ParameterObject 的引入，它被视为一种简化控制器方法签名的首选方式，特别是当你有多个参数需要从请求中提取并封装到一个对象时。
 但是，在这之前的版本中或者在不支持 @ParameterObject 的情况下，你仍然需要使用 @ModelAttribute。
 ```
+
+#### oauth2相关
+
+##### 关于auth2版本问题
+
+在springboot2中授权服务器依赖为：
+
+```pom
+<dependency>
+	<groupId>org.springframework.cloud</groupId>
+	<artifactId>spring-cloud-starter-oauth2</artifactId>
+</dependency>
+```
+
+springboot3中个别spingboot没有提供相应的授权服务器依赖，引入依赖为：
+
+```pom
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-oauth2-authorization-server</artifactId>
+</dependency>
+```
+
+其他的资源和客户端不变
