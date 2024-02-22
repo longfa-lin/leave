@@ -81,7 +81,7 @@ spring:
 
         provider:
           spring:
-            issuer-uri: http://192.168.56.1:9090 #这个不要和客户端ip一致 不然玩不了
+            issuer-uri: http://172.16.15.245:9090 #这个不要和客户端ip一致 不然玩不了
 
 knife4j:
   # 聚合swagger文档

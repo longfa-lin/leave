@@ -5,7 +5,7 @@
  * Developer Web Site: http://open.xiaominfo.com.
  */
 
-package com.vian.auth.service.infrastructure.config;
+package com.vian.auth.service.infrastructure.config.swagger;
 
 import cn.hutool.core.util.RandomUtil;
 import io.swagger.v3.oas.models.OpenAPI;
