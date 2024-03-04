@@ -15,6 +15,7 @@
  */
 package com.vian.auth.service.infrastructure.config.security;
 
+import com.vian.auth.service.infrastructure.config.federation.FederatedIdentityAuthenticationSuccessHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -32,7 +33,6 @@ import org.springframework.security.web.session.HttpSessionEventPublisher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
-import sample.federation.FederatedIdentityAuthenticationSuccessHandler;
 
 /**
  * @author Joe Grandja
@@ -43,59 +43,60 @@ import sample.federation.FederatedIdentityAuthenticationSuccessHandler;
 @Configuration(proxyBeanMethods = false)
 public class DefaultSecurityConfig {
 
-	// 过滤器链
-	@Bean
-	public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
-		http
-				.authorizeHttpRequests(authorize ->//① 配置鉴权的
-						authorize
-								.requestMatchers("/assets/**", "/webjars/**", "/login","/oauth2/**","/oauth2/token").permitAll() //② 忽略鉴权的url
-								.anyRequest().authenticated()//③ 排除忽略的其他url就需要鉴权了
-				)
-				.csrf(AbstractHttpConfigurer::disable)
-				.formLogin(formLogin ->
-						formLogin
-								.loginPage("/login")//④ 授权服务认证页面（可以配置相对和绝对地址，前后端分离的情况下填前端的url）
-				)
-				.oauth2Login(oauth2Login ->
-						oauth2Login
-								.loginPage("/login")//⑤ oauth2的认证页面（也可配置绝对地址）
-								.successHandler(authenticationSuccessHandler())//⑥ 登录成功后的处理
-				);
+    // 过滤器链
+    @Bean
+    public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
+        http
+                .authorizeHttpRequests(authorize ->//① 配置鉴权的
+                        authorize
+                                .requestMatchers("/assets/**", "/webjars/**", "/login", "/oauth2/**", "/oauth2/token").permitAll() //② 忽略鉴权的url
+                                .anyRequest().authenticated()//③ 排除忽略的其他url就需要鉴权了
+                )
+                .csrf(AbstractHttpConfigurer::disable)
+                .formLogin(formLogin ->
+                        formLogin
+                                .loginPage("/login")//④ 授权服务认证页面（可以配置相对和绝对地址，前后端分离的情况下填前端的url）
+                )
+                .oauth2Login(oauth2Login ->
+                        oauth2Login
+                                .loginPage("/login")//⑤ oauth2的认证页面（也可配置绝对地址）
+                                .successHandler(authenticationSuccessHandler())//⑥ 登录成功后的处理
+                );
 
-		return http.build();
-	}
-
-
-	private AuthenticationSuccessHandler authenticationSuccessHandler() {
-		return new FederatedIdentityAuthenticationSuccessHandler();
-	}
-
-	// 初始化了一个用户在内存里面（这样就不会每次启动就再去生成密码了）
-	@Bean
-	public UserDetailsService users() {
-		UserDetails user = User.withDefaultPasswordEncoder()
-				.username("user1")
-				.password("password")
-				.roles("USER")
-				.build();
-		return new InMemoryUserDetailsManager(user);
-	}
+        return http.build();
+    }
 
 
-	@Bean
-	public SessionRegistry sessionRegistry() {
-		return new SessionRegistryImpl();
-	}
+    private AuthenticationSuccessHandler authenticationSuccessHandler() {
+        return new FederatedIdentityAuthenticationSuccessHandler();
+    }
 
-	@Bean
-	public HttpSessionEventPublisher httpSessionEventPublisher() {
-		return new HttpSessionEventPublisher();
-	}
+    // 初始化了一个用户在内存里面（这样就不会每次启动就再去生成密码了）
+    @Bean
+    public UserDetailsService users() {
+        UserDetails user = User.withDefaultPasswordEncoder()
+                .username("user1")
+                .password("password")
+                .roles("USER")
+                .build();
+        return new InMemoryUserDetailsManager(user);
+    }
 
 
-	    /**
+    @Bean
+    public SessionRegistry sessionRegistry() {
+        return new SessionRegistryImpl();
+    }
+
+    @Bean
+    public HttpSessionEventPublisher httpSessionEventPublisher() {
+        return new HttpSessionEventPublisher();
+    }
+
+
+    /**
      * 跨域过滤器配置
+     *
      * @return
      */
     @Bean
