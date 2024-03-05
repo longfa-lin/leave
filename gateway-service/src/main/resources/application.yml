@@ -66,6 +66,7 @@ spring:
             - Path=/auth/**
           filters:
             - StripPrefix=1
+            - TokenRelay=
   security:
     oauth2:
       client:
