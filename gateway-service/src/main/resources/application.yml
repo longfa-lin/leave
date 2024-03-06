@@ -1,6 +1,8 @@
 server:
   port: 9092
 spring:
+  thymeleaf:
+    cache: false
   cloud:
     nacos:
       discovery:
@@ -76,7 +78,7 @@ spring:
             client-id: messaging-client
             client-secret: secret
             authorization-grant-type: authorization_code
-            redirect-uri: "http://127.0.0.1:9092/login/oauth2/code/messaging-client-oidc"
+            redirect-uri: "http://127.0.0.1:9092/login/oauth2/code/{registrationId}"
             scope: openid, profile
             client-name: messaging-client-oidc
 
@@ -108,3 +110,11 @@ knife4j:
         # 路由前缀
         context-path: /leave
         order: 2
+
+logging:
+  level:
+    root: INFO
+    org.springframework.web: debug
+    org.springframework.security: debug
+    org.springframework.security.oauth2: debug
+    org.springframework.security.oauth2.client: debug

@@ -54,3 +54,11 @@ spring:
             user-info-uri: https://gitee.com/api/v5/user
             # 发起授权申请的地址
             authorization-uri: https://gitee.com/oauth/authorize
+
+logging:
+  level:
+    root: INFO
+    org.springframework.web: INFO
+    org.springframework.security: debug
+    org.springframework.security.oauth2: debug
+    org.springframework.security.oauth2.client: trace
