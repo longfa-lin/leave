@@ -1,8 +1,6 @@
 server:
   port: 9092
 spring:
-  thymeleaf:
-    cache: false
   cloud:
     nacos:
       discovery:
@@ -13,7 +11,7 @@ spring:
     sentinel:
       transport:
         dashboard: single.sentinel.cn:8858
-        client-ip: 172.16.15.245
+        client-ip: 192.168.0.102
       datasource:
         gw-flow:
           nacos:
@@ -84,7 +82,7 @@ spring:
 
         provider:
           spring:
-            issuer-uri: http://172.16.15.245:9090 #这个不要和客户端ip一致 不然玩不了
+            issuer-uri: http://192.168.0.102:9090 #这个不要和客户端ip一致 不然玩不了
 
 knife4j:
   # 聚合swagger文档
