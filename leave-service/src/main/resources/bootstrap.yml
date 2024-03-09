@@ -2,7 +2,7 @@ spring:
   application:
     name: leave-service
   profiles:
-    active: dev
+    active: dev-mac
   cloud:
     nacos:
       config:
@@ -12,6 +12,7 @@ spring:
         password: 1qazxsw2
         namespace: DEV
         group: leave
+        enabled: false
 #logging:
 #  level:
 #    root: info
