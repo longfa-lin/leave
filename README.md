@@ -309,4 +309,4 @@ RegisteredClient registeredClient = RegisteredClient.withId(UUID.randomUUID().to
 
 ##### OAuth2授权流程
 
-![img_4day_4.png](assets/img_4day_4.png)
+![img_4day_4.png](doc/assets/img_4day_4.png)
