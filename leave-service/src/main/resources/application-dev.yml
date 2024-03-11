@@ -11,7 +11,7 @@ spring:
         server-addr: single.nacos.cn:8848
         username: nacos
         password: 1qazxsw2
-        namespace: DEV
+#        namespace: DEV
     sentinel:
       transport:
         dashboard: single.sentinel.cn:8858

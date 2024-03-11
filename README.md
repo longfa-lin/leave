@@ -33,9 +33,11 @@ sentinel流控和熔断处理，blockHandler和fallback
 blockHandler优先级高于fallback，即设置了blockHandler之后，设置fallback无效
 但是fallback可用于处理特定异常的弥补程序
 
-#### gateway-sentinel-nacos实现网关限流
+#### gateway
 
-##### 注意事项：
+##### gateway-sentinel-nacos实现网关限流
+
+###### 注意事项
 
 1. 在nacos配置sentinel时，rule-type:网关限流为-gw-flow api限流为
    gw-api-group,具体可见com.alibaba.cloud.sentinel.datasource下的RuleType.class
@@ -64,6 +66,67 @@ blockHandler优先级高于fallback，即设置了blockHandler之后，设置fal
      }
    }
    ```
+
+##### 网关集成OAuth2
+
+1. 引入依赖
+
+```pom
+<dependency>
+   <groupId>org.springframework.boot</groupId>
+   <artifactId>spring-boot-starter-security</artifactId>
+</dependency>
+<dependency>
+   <groupId>org.springframework.boot</groupId>
+   <artifactId>spring-boot-starter-oauth2-client</artifactId>
+</dependency>
+```
+
+2. 增加配置代码
+
+```java
+@Configuration(proxyBeanMethods = false)
+@EnableWebFluxSecurity
+public class SecurityConfig {
+
+    @Bean
+    public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
+        http
+                .authorizeExchange(authorize -> authorize
+                        .anyExchange().authenticated()
+                )
+                .oauth2Login(withDefaults())
+                .logout(withDefaults());
+        return http.build();
+    }
+}
+```
+
+3. 配置文件增加配置
+
+```yaml
+spring:  
+  security:
+    oauth2:
+      client:
+        registration:
+          messaging-client-oidc:
+            provider: spring
+            client-id: messaging-client
+            client-secret: secret
+            authorization-grant-type: authorization_code
+            redirect-uri: "http://127.0.0.1:9092/login/oauth2/code/{registrationId}"
+            scope: openid, profile
+            client-name: messaging-client-oidc
+
+        provider:
+          spring:
+            issuer-uri: http://172.16.15.245:9090 #这个不要和客户端ip一致 不然玩不了
+```
+
+4. 配置文件优化
+
+针对gateway.router[*].filters[] 增加TokenRelay=，它的作用是将请求中的令牌（token）传递给下游服务对应的是这个class TokenRelayGatewayFilterFactory
 
 #### 关于对接knife4j
 
@@ -220,3 +283,30 @@ springboot3中个别spingboot没有提供相应的授权服务器依赖，引入
 ```
 
 其他的资源和客户端不变
+
+##### oauth2配置授权页面不展示，默认直接授权
+
+该设置在registerClient 初始化的时候可以进行设置，如下代码所示：
+
+```java
+RegisteredClient registeredClient = RegisteredClient.withId(UUID.randomUUID().toString())
+                .clientId("messaging-client")
+                .clientSecret("{noop}secret")
+                .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
+                .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
+                .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
+                .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
+                .redirectUri("http://127.0.0.1:8080/login/oauth2/code/messaging-client-oidc")
+                .redirectUri("http://127.0.0.1:8080/authorized")
+                .postLogoutRedirectUri("http://127.0.0.1:8080/logged-out")
+                .scope(OidcScopes.OPENID)
+                .scope(OidcScopes.PROFILE)
+                .scope("message.read")
+                .scope("message.write")
+                .clientSettings(ClientSettings.builder().requireAuthorizationConsent(false).build())//requireAuthorizationConsent(true) 授权页是有的 如果是false是没有的
+                .build();
+```
+
+##### OAuth2授权流程
+
+![img_4day_4.png](assets/img_4day_4.png)

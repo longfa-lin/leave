@@ -135,7 +135,7 @@ public class AuthorizationServerConfig {
                 .scope(OidcScopes.PROFILE)
                 .scope("message.read")
                 .scope("message.write")
-                .clientSettings(ClientSettings.builder().requireAuthorizationConsent(true).build())//requireAuthorizationConsent(true) 授权页是有的 如果是false是没有的
+                .clientSettings(ClientSettings.builder().requireAuthorizationConsent(false).build())//requireAuthorizationConsent(true) 授权页是有的 如果是false是没有的
                 .build();
 
         RegisteredClient deviceClient = RegisteredClient.withId(UUID.randomUUID().toString())

@@ -7,7 +7,7 @@ spring:
         server-addr: single.nacos.cn:8848
         username: nacos
         password: 1qazxsw2
-        namespace: DEV
+#        namespace: DEV
     sentinel:
       transport:
         dashboard: single.sentinel.cn:8858
@@ -60,13 +60,14 @@ spring:
             - StripPrefix=1
             - RequestLogging
             - ResponseLogging
-        - id: auth-service
-          uri: lb://auth-service
-          predicates:
-            - Path=/auth/**
-          filters:
-            - StripPrefix=1
             - TokenRelay=
+#        - id: auth-service
+#          uri: lb://auth-service
+#          predicates:
+#            - Path=/auth/**
+#          filters:
+#            - StripPrefix=1
+#            - TokenRelay=
   security:
     oauth2:
       client:
@@ -95,13 +96,13 @@ knife4j:
     # discover:
     #   excluded-services: ${spring.application.name}
     routes:
-      - name: 认证服务
-        url: /auth/v3/api-docs
-        service-name: auth-service
-        # 路由前缀
-        # 兼容OpenAPI3规范在聚合时丢失contextPath属性的异常情况，由开发者自己配置contextPath,Knife4j的前端Ui做兼容处理,与url属性独立不冲突，仅OpenAPI3规范聚合需要，OpenAPI2规范不需要设置此属性,默认为(apiPathPrefix)
-        context-path: /auth
-        order: 1
+#      - name: 认证服务
+#        url: /auth/v3/api-docs
+#        service-name: auth-service
+#        # 路由前缀
+#        # 兼容OpenAPI3规范在聚合时丢失contextPath属性的异常情况，由开发者自己配置contextPath,Knife4j的前端Ui做兼容处理,与url属性独立不冲突，仅OpenAPI3规范聚合需要，OpenAPI2规范不需要设置此属性,默认为(apiPathPrefix)
+#        context-path: /auth
+#        order: 1
       - name: 请假服务
         url: /leave/v3/api-docs
         service-name: leave-service
