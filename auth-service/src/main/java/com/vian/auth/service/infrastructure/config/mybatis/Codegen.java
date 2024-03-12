@@ -37,6 +37,7 @@ public class Codegen {
 
         //设置根包
         globalConfig.getPackageConfig()
+                .setSourceDir(System.getProperty("user.dir") + "/auth-service/src/main/java")
                 .setBasePackage("com.vian.auth.service")
                 .setEntityPackage(globalConfig.getBasePackage() + ".domain.user.repository.po")
                 .setMapperPackage(globalConfig.getBasePackage() + ".domain.user.repository.mapper")
@@ -63,6 +64,9 @@ public class Codegen {
 
         //设置生成 mapper
         globalConfig.setMapperGenerateEnable(true);
+        globalConfig.setServiceGenerateEnable(true);
+        globalConfig.setServiceImplGenerateEnable(true);
+        globalConfig.setControllerGenerateEnable(true);
 
         //可以单独配置某个列
         ColumnConfig columnConfig = new ColumnConfig();
