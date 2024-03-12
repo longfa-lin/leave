@@ -78,7 +78,7 @@ public class Codegen {
         return globalConfig;
     }
 
-    public static GlobalConfig entityConfig(GlobalConfig globalConfig) {
+    public static void entityConfig(GlobalConfig globalConfig) {
         globalConfig.getEntityConfig()
                 .setWithLombok(true)
 //                .setClassPrefix("My")
@@ -91,43 +91,38 @@ public class Codegen {
                 .setSwaggerVersion(EntityConfig.SwaggerVersion.DOC)
 //                .setSuperClass(BaseEntity.class)
         ;
-        return globalConfig;
     }
 
-    public static GlobalConfig mapperConfig(GlobalConfig globalConfig) {
+    public static void mapperConfig(GlobalConfig globalConfig) {
         globalConfig.getMapperConfig()
                 .setClassSuffix("Dao")
                 .setOverwriteEnable(true)
                 .setSuperClass(BaseMapper.class)
         ;
-        return globalConfig;
     }
 
-    public static GlobalConfig serviceConfig(GlobalConfig globalConfig) {
+    public static void serviceConfig(GlobalConfig globalConfig) {
         globalConfig.getServiceConfig()
                 .setClassSuffix("Repository")
                 .setOverwriteEnable(true)
                 .setSuperClass(IService.class)
         ;
-        return globalConfig;
     }
 
-    public static GlobalConfig serviceImplConfig(GlobalConfig globalConfig) {
+    public static void serviceImplConfig(GlobalConfig globalConfig) {
         globalConfig.getServiceImplConfig()
                 .setClassSuffix("RepositoryImpl")
                 .setOverwriteEnable(true)
                 .setSuperClass(ServiceImpl.class)
         ;
-        return globalConfig;
     }
 
-    public static GlobalConfig controllerConfig(GlobalConfig globalConfig) {
+    public static void controllerConfig(GlobalConfig globalConfig) {
         globalConfig.getControllerConfig()
                 .setClassSuffix("Api")
                 .setOverwriteEnable(true)
                 .setRestStyle(true)
         ;
-        return globalConfig;
     }
 
 
