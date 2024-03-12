@@ -88,7 +88,7 @@ public class Codegen {
                 //是否覆盖之前生成的文件
                 .setOverwriteEnable(true)
                 .setWithSwagger(true)
-                .setSwaggerVersion(EntityConfig.SwaggerVersion.FOX)
+                .setSwaggerVersion(EntityConfig.SwaggerVersion.DOC)
 //                .setSuperClass(BaseEntity.class)
         ;
         return globalConfig;
