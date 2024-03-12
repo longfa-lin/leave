@@ -21,7 +21,7 @@
         <spring-cloud.version>2022.0.4</spring-cloud.version>
         <spring-cloud-alibaba.version>2022.0.0.0</spring-cloud-alibaba.version>
         <spring-security-oauth2.version>1.1.1</spring-security-oauth2.version>
-        <mybatis-flex.version>1.6.7</mybatis-flex.version>
+        <mybatis-flex.version>1.8.2</mybatis-flex.version>
         <org.projectlombok.version>1.18.28</org.projectlombok.version>
         <snakeyaml.version>2.0</snakeyaml.version>
         <mapstruct.version>1.4.2.Final</mapstruct.version>
