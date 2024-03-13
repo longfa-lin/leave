@@ -42,13 +42,13 @@ public class Codegen {
                 .setEntityPackage(globalConfig.getBasePackage() + ".domain.user.repository.po")
                 .setMapperPackage(globalConfig.getBasePackage() + ".domain.user.repository.mapper")
                 .setServicePackage(globalConfig.getBasePackage() + ".domain.user.repository.facade")
-                .setServiceImplPackage(globalConfig.getBasePackage() + "domain.user.repository.persistence")
-                .setControllerPackage(globalConfig.getBasePackage() + "interfaces.facade")
+                .setServiceImplPackage(globalConfig.getBasePackage() + ".domain.user.repository.persistence")
+                .setControllerPackage(globalConfig.getBasePackage() + ".interfaces.facade")
         ;
 
         //设置表前缀和只生成哪些表
         globalConfig.setTablePrefix("sys_");
-        globalConfig.setGenerateTable("sys_user");
+        globalConfig.setGenerateTable("sys_registered_client");
 
         entityConfig(globalConfig);
         mapperConfig(globalConfig);
