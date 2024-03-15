@@ -15,4 +15,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserRepositoryImpl extends ServiceImpl<UserDao, UserPO> implements UserRepository {
 
+    @Override
+    public UserPO findOneByPhone(String phone) {
+        return null;
+    }
+
+    @Override
+    public UserPO findOneByUserName(String userName) {
+        return null;
+    }
 }

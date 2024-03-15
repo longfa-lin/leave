@@ -1,5 +1,6 @@
 package com.vian.auth.service.domain.user.repository.po;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.mybatisflex.annotation.Id;
 import com.mybatisflex.annotation.Table;
 import java.io.Serializable;
@@ -10,6 +11,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.io.Serial;
 
 /**
@@ -26,9 +29,6 @@ import java.io.Serial;
 @Table(value = "sys_registered_client")
 public class RegisteredClientPO implements Serializable {
 
-    @Serial
-    private static final long serialVersionUID = 1L;
-
     @Id
     @Schema(description = "")
     private String id;
@@ -37,12 +37,16 @@ public class RegisteredClientPO implements Serializable {
     private String clientId;
 
     @Schema(description = "")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime clientIdIssuedAt;
 
     @Schema(description = "")
     private String clientSecret;
 
     @Schema(description = "")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime clientSecretExpiresAt;
 
     @Schema(description = "")

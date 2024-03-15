@@ -1,5 +1,6 @@
 package com.vian.auth.service.domain.user.repository.po;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.mybatisflex.annotation.Id;
 import com.mybatisflex.annotation.KeyType;
 import com.mybatisflex.annotation.Table;
@@ -11,6 +12,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.io.Serial;
 
 /**
@@ -26,9 +29,6 @@ import java.io.Serial;
 @Schema(description = "用户表")
 @Table(value = "sys_user")
 public class UserPO implements Serializable {
-
-    @Serial
-    private static final long serialVersionUID = 1L;
 
     /**
      * id
@@ -77,12 +77,16 @@ public class UserPO implements Serializable {
      * 创建时间
      */
     @Schema(description = "创建时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
 
     /**
      * 修改时间
      */
     @Schema(description = "修改时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime modifiedTime;
 
 }
