@@ -99,7 +99,7 @@ public class LeaveFactory {
 
     private List<ApprovalInfo> getApprovalInfos(List<ApprovalInfoPO> approvalInfoPOList) {
         return approvalInfoPOList.stream()
-                .map(approvalInfoPO -> approvalInfoFromPO(approvalInfoPO))
+                .map(this::approvalInfoFromPO)
                 .collect(Collectors.toList());
     }
 }

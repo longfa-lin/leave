@@ -9,6 +9,12 @@ import com.vian.auth.service.domain.user.repository.po.RegisteredClientPO;
  * @author linlo
  * @since 2024-03-13
  */
-public interface RegisteredClientRepository extends IService<RegisteredClientPO> {
+public interface RegisteredClientRepository {
+
+    RegisteredClientPO getOneByClientId(String clientId);
+
+    String saveClient(RegisteredClientPO clientPO);
+
+    RegisteredClientPO getOneById(String id);
 
 }
