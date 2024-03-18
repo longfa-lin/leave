@@ -85,15 +85,15 @@ public class DefaultSecurityConfig {
     }
 
     // 初始化了一个用户在内存里面（这样就不会每次启动就再去生成密码了）
-//    @Bean
-//    public UserDetailsService users() {
-//        UserDetails user = User.withDefaultPasswordEncoder()
-//                .username("user1")
-//                .password("password")
-//                .roles("USER")
-//                .build();
-//        return new InMemoryUserDetailsManager(user);
-//    }
+    @Bean
+    public UserDetailsService users() {
+        UserDetails user = User.withDefaultPasswordEncoder()
+                .username("user1")
+                .password("password")
+                .roles("USER")
+                .build();
+        return new InMemoryUserDetailsManager(user);
+    }
     @Bean
     public SessionRegistry sessionRegistry() {
         return new SessionRegistryImpl();

@@ -171,10 +171,10 @@
         </dependency>
 
         <!-- 内存数据库-->
-        <!--<dependency>
+        <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
-        </dependency>-->
+        </dependency>
 
         <dependency>
             <groupId>org.mapstruct</groupId>

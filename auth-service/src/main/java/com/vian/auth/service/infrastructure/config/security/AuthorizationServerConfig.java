@@ -119,41 +119,41 @@ public class AuthorizationServerConfig {
 
     // 这个就是客户端的获取方式了，授权服务内部会调用做一些验证 例如 redirectUri
     // 官方给出的demo就先在内存里面初始化 也可以才有数据库的形式 实现 RegisteredClientRepository即可
-//    @Bean
-//    public RegisteredClientRepository registeredClientRepository(JdbcTemplate jdbcTemplate) {
-//        RegisteredClient registeredClient = RegisteredClient.withId(UUID.randomUUID().toString())
-//                .clientId("messaging-client")
-//                .clientSecret("{noop}secret")
-//                .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
-//                .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
-//                .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
-//                .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
-//                .redirectUri("http://127.0.0.1:8080/login/oauth2/code/messaging-client-oidc")
-//                .redirectUri("http://127.0.0.1:8080/authorized")
-//                .postLogoutRedirectUri("http://127.0.0.1:8080/logged-out")
-//                .scope(OidcScopes.OPENID)
-//                .scope(OidcScopes.PROFILE)
-//                .scope("message.read")
-//                .scope("message.write")
-//                .clientSettings(ClientSettings.builder().requireAuthorizationConsent(false).build())//requireAuthorizationConsent(true) 授权页是有的 如果是false是没有的
-//                .build();
-//
-//        RegisteredClient deviceClient = RegisteredClient.withId(UUID.randomUUID().toString())
-//                .clientId("device-messaging-client")
-//                .clientAuthenticationMethod(ClientAuthenticationMethod.NONE)
-//                .authorizationGrantType(AuthorizationGrantType.DEVICE_CODE)
-//                .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
-//                .scope("message.read")
-//                .scope("message.write")
-//                .build();
-//
-//        // Save registered client's in db as if in-memory
-//        JdbcRegisteredClientRepository registeredClientRepository = new JdbcRegisteredClientRepository(jdbcTemplate);
-//        registeredClientRepository.save(registeredClient);
-//        registeredClientRepository.save(deviceClient);
-//
-//        return registeredClientRepository;
-//    }
+    @Bean
+    public RegisteredClientRepository registeredClientRepository(JdbcTemplate jdbcTemplate) {
+        RegisteredClient registeredClient = RegisteredClient.withId(UUID.randomUUID().toString())
+                .clientId("messaging-client")
+                .clientSecret("{noop}secret")
+                .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
+                .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
+                .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
+                .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
+                .redirectUri("http://127.0.0.1:8080/login/oauth2/code/messaging-client-oidc")
+                .redirectUri("http://127.0.0.1:8080/authorized")
+                .postLogoutRedirectUri("http://127.0.0.1:8080/logged-out")
+                .scope(OidcScopes.OPENID)
+                .scope(OidcScopes.PROFILE)
+                .scope("message.read")
+                .scope("message.write")
+                .clientSettings(ClientSettings.builder().requireAuthorizationConsent(false).build())//requireAuthorizationConsent(true) 授权页是有的 如果是false是没有的
+                .build();
+
+        RegisteredClient deviceClient = RegisteredClient.withId(UUID.randomUUID().toString())
+                .clientId("device-messaging-client")
+                .clientAuthenticationMethod(ClientAuthenticationMethod.NONE)
+                .authorizationGrantType(AuthorizationGrantType.DEVICE_CODE)
+                .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
+                .scope("message.read")
+                .scope("message.write")
+                .build();
+
+        // Save registered client's in db as if in-memory
+        JdbcRegisteredClientRepository registeredClientRepository = new JdbcRegisteredClientRepository(jdbcTemplate);
+        registeredClientRepository.save(registeredClient);
+        registeredClientRepository.save(deviceClient);
+
+        return registeredClientRepository;
+    }
     // @formatter:on
 
     //这个是oauth2的授权信息(包含了用户、token等其他信息) 这个也是可以扩展的 OAuth2AuthorizationService也是一个实现类
@@ -196,19 +196,19 @@ public class AuthorizationServerConfig {
 
 
     //此时基于H2数据库(内存数据库) 需要使用mysql 就注释掉就可以了 demo这个地方我们用内存跑就行了 省事
-//    @Bean
-//    public EmbeddedDatabase embeddedDatabase() {
-//        // @formatter:off
-//		return new EmbeddedDatabaseBuilder()
-//				.generateUniqueName(true)
-//				.setType(EmbeddedDatabaseType.H2)
-//				.setScriptEncoding("UTF-8")
-//				.addScript("org/springframework/security/oauth2/server/authorization/oauth2-authorization-schema.sql")
-//				.addScript("org/springframework/security/oauth2/server/authorization/oauth2-authorization-consent-schema.sql")
-//				.addScript("org/springframework/security/oauth2/server/authorization/client/oauth2-registered-client-schema.sql")
-//				.build();
-//		// @formatter:on
-//    }
+    @Bean
+    public EmbeddedDatabase embeddedDatabase() {
+        // @formatter:off
+		return new EmbeddedDatabaseBuilder()
+				.generateUniqueName(true)
+				.setType(EmbeddedDatabaseType.H2)
+				.setScriptEncoding("UTF-8")
+				.addScript("org/springframework/security/oauth2/server/authorization/oauth2-authorization-schema.sql")
+				.addScript("org/springframework/security/oauth2/server/authorization/oauth2-authorization-consent-schema.sql")
+				.addScript("org/springframework/security/oauth2/server/authorization/client/oauth2-registered-client-schema.sql")
+				.build();
+		// @formatter:on
+    }
 
 }
 
