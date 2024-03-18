@@ -1,5 +1,6 @@
 package com.vian.auth.service.domain.user.service.register;
 
+import com.vian.auth.service.domain.user.entity.RegisteredClientEntity;
 import com.vian.auth.service.domain.user.repository.po.RegisteredClientPO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
@@ -17,5 +18,7 @@ import org.springframework.security.oauth2.server.authorization.client.Registere
 public interface RegisteredClientConvert {
     RegisteredClientConvert INSTANCE = Mappers.getMapper(RegisteredClientConvert.class);
 
-    RegisteredClient POToEntity(RegisteredClientPO registeredClientPO);
+    RegisteredClientEntity POToEntity(RegisteredClientPO registeredClientPO);
+
+    RegisteredClientPO entityToPO(RegisteredClientEntity registeredClientEntity);
 }

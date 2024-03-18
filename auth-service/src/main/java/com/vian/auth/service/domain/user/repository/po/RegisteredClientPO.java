@@ -1,6 +1,7 @@
 package com.vian.auth.service.domain.user.repository.po;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.mybatisflex.annotation.Column;
 import com.mybatisflex.annotation.Id;
 import com.mybatisflex.annotation.KeyType;
 import com.mybatisflex.annotation.Table;
@@ -8,6 +9,8 @@ import com.mybatisflex.annotation.Table;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+import com.mybatisflex.core.handler.GsonTypeHandler;
+import com.mybatisflex.core.handler.JacksonTypeHandler;
 import com.mybatisflex.core.keygen.KeyGenerators;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
@@ -17,6 +20,8 @@ import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serial;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * oauth2 客户端注册登记 实体类。
@@ -55,25 +60,25 @@ public class RegisteredClientPO implements Serializable {
     @Schema(description = "")
     private String clientName;
 
-    @Schema(description = "")
-    private String clientAuthenticationMethods;
+    @Column(typeHandler = GsonTypeHandler.class)
+    private Set<String> clientAuthenticationMethods;
 
-    @Schema(description = "")
-    private String authorizationGrantTypes;
+    @Column(typeHandler = GsonTypeHandler.class)
+    private Set<String> authorizationGrantTypes;
 
-    @Schema(description = "")
-    private String redirectUris;
+    @Column(typeHandler = GsonTypeHandler.class)
+    private Set<String> redirectUris;
 
-    @Schema(description = "")
-    private String scopes;
+    @Column(typeHandler = GsonTypeHandler.class)
+    private Set<String> postLogoutRedirectUris;
 
-    @Schema(description = "")
-    private String clientSettings;
+    @Column(typeHandler = GsonTypeHandler.class)
+    private Set<String> scopes;
 
-    @Schema(description = "")
-    private String tokenSettings;
+    @Column(typeHandler = GsonTypeHandler.class)
+    private Map<String, Object> clientSettings;
 
-    @Schema(description = "")
-    private String postLogoutRedirectUris;
+    @Column(typeHandler = GsonTypeHandler.class)
+    private Map<String, Object> tokenSettings;
 
 }

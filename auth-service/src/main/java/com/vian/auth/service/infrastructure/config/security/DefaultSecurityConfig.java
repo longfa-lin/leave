@@ -16,6 +16,7 @@
 package com.vian.auth.service.infrastructure.config.security;
 
 import com.vian.auth.service.infrastructure.config.federation.FederatedIdentityAuthenticationSuccessHandler;
+import jakarta.annotation.Resource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -28,6 +29,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.web.DefaultSecurityFilterChain;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.session.HttpSessionEventPublisher;
@@ -44,13 +46,21 @@ import org.springframework.web.filter.CorsFilter;
 @Configuration(proxyBeanMethods = false)
 public class DefaultSecurityConfig {
 
+//    @Resource
+//    public UserDetailsService userDetailsService;
+
     // 过滤器链
     @Bean
     public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authorize ->//① 配置鉴权的
                         authorize
-                                .requestMatchers("/assets/**", "/webjars/**", "/login", "/oauth2/**", "/oauth2/token").permitAll() //② 忽略鉴权的url
+                                .requestMatchers(
+                                        "/assets/**",
+                                        "/webjars/**",
+                                        "/login",
+                                        "/oauth2/**",
+                                        "/oauth2/token").permitAll() //② 忽略鉴权的url
                                 .anyRequest().authenticated()//③ 排除忽略的其他url就需要鉴权了
                 )
                 .csrf(AbstractHttpConfigurer::disable)
@@ -64,7 +74,9 @@ public class DefaultSecurityConfig {
                                 .successHandler(authenticationSuccessHandler())//⑥ 登录成功后的处理
                 );
 
-        return http.build();
+        DefaultSecurityFilterChain build = http.build();
+
+        return build;
     }
 
 
@@ -73,15 +85,15 @@ public class DefaultSecurityConfig {
     }
 
     // 初始化了一个用户在内存里面（这样就不会每次启动就再去生成密码了）
-    @Bean
-    public UserDetailsService users() {
-        UserDetails user = User.withDefaultPasswordEncoder()
-                .username("user1")
-                .password("password")
-                .roles("USER")
-                .build();
-        return new InMemoryUserDetailsManager(user);
-    }
+//    @Bean
+//    public UserDetailsService users() {
+//        UserDetails user = User.withDefaultPasswordEncoder()
+//                .username("user1")
+//                .password("password")
+//                .roles("USER")
+//                .build();
+//        return new InMemoryUserDetailsManager(user);
+//    }
     @Bean
     public SessionRegistry sessionRegistry() {
         return new SessionRegistryImpl();

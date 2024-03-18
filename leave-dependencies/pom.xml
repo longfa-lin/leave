@@ -23,8 +23,9 @@
         <spring-security-oauth2.version>1.1.1</spring-security-oauth2.version>
         <mybatis-flex.version>1.8.2</mybatis-flex.version>
         <org.projectlombok.version>1.18.28</org.projectlombok.version>
+        <lombok-mapstruct-binding.version>0.2.0</lombok-mapstruct-binding.version>
         <snakeyaml.version>2.0</snakeyaml.version>
-        <mapstruct.version>1.4.2.Final</mapstruct.version>
+        <mapstruct.version>1.5.5.Final</mapstruct.version>
         <fastjson.version>1.2.67_noneautotype2</fastjson.version>
         <caffeine.version>3.1.5</caffeine.version>
         <knife4j.version>4.0.0</knife4j.version>
@@ -172,9 +173,19 @@
                                 <artifactId>lombok</artifactId>
                             </path>
                             <path>
+                                <groupId>org.projectlombok</groupId>
+                                <artifactId>lombok-mapstruct-binding</artifactId>
+                                <version>${lombok-mapstruct-binding.version}</version>
+                            </path>
+                            <path>
                                 <groupId>org.mapstruct</groupId>
                                 <artifactId>mapstruct-processor</artifactId>
                                 <version>${mapstruct.version}</version>
+                            </path>
+                            <path>
+                                <groupId>com.mybatis-flex</groupId>
+                                <artifactId>mybatis-flex-processor</artifactId>
+                                <version>${mybatis-flex.version}</version>
                             </path>
                         </annotationProcessorPaths>
                     </configuration>

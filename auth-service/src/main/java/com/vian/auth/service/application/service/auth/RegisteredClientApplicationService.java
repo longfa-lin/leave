@@ -1,5 +1,6 @@
 package com.vian.auth.service.application.service.auth;
 
+import com.vian.auth.service.domain.user.entity.RegisteredClientEntity;
 import com.vian.auth.service.domain.user.service.register.RegisteredClientDomainService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.oauth2.client.ClientAuthorizationException;
@@ -35,76 +36,76 @@ public class RegisteredClientApplicationService implements RegisteredClientRepos
 
     @Override
     public void save(RegisteredClient registeredClient) {
-        SysRegisteredClientDto sysRegisteredClientDto = new SysRegisteredClientDto();
-        sysRegisteredClientDto.setClientId(registeredClient.getClientId());
-        sysRegisteredClientDto.setClientName(registeredClient.getClientName());
-        sysRegisteredClientDto.setClientSecret(registeredClient.getClientSecret());
+        RegisteredClientEntity registeredClientEntity = new RegisteredClientEntity();
+        registeredClientEntity.setClientId(registeredClient.getClientId());
+        registeredClientEntity.setClientName(registeredClient.getClientName());
+        registeredClientEntity.setClientSecret(registeredClient.getClientSecret());
         if (registeredClient.getClientIdIssuedAt() != null) {
-            sysRegisteredClientDto.setClientIdIssuedAt(registeredClient.getClientIdIssuedAt().atZone(ZoneId.of("Asia/Shanghai")).toLocalDateTime());
+            registeredClientEntity.setClientIdIssuedAt(registeredClient.getClientIdIssuedAt().atZone(ZoneId.of("Asia/Shanghai")).toLocalDateTime());
         }
         if (registeredClient.getClientSecretExpiresAt() != null) {
-            sysRegisteredClientDto.setClientSecretExpiresAt(registeredClient.getClientSecretExpiresAt().atZone(ZoneId.of("Asia/Shanghai")).toLocalDateTime());
+            registeredClientEntity.setClientSecretExpiresAt(registeredClient.getClientSecretExpiresAt().atZone(ZoneId.of("Asia/Shanghai")).toLocalDateTime());
         }
-        sysRegisteredClientDto.setClientAuthenticationMethods(registeredClient.getClientAuthenticationMethods().stream().map(ClientAuthenticationMethod::getValue).collect(Collectors.toSet()));
-        sysRegisteredClientDto.setAuthorizationGrantTypes(registeredClient.getAuthorizationGrantTypes().stream().map(AuthorizationGrantType::getValue).collect(Collectors.toSet()));
-        sysRegisteredClientDto.setRedirectUris(registeredClient.getRedirectUris());
-        sysRegisteredClientDto.setPostLogoutRedirectUris(registeredClient.getPostLogoutRedirectUris());
-        sysRegisteredClientDto.setScopes(registeredClient.getScopes());
-        sysRegisteredClientDto.setTokenSettings(registeredClient.getTokenSettings().getSettings());
-        sysRegisteredClientDto.setClientSettings(registeredClient.getClientSettings().getSettings());
-        registeredClientDomainService.saveClient(sysRegisteredClientDto);
+        registeredClientEntity.setClientAuthenticationMethods(registeredClient.getClientAuthenticationMethods().stream().map(ClientAuthenticationMethod::getValue).collect(Collectors.toSet()));
+        registeredClientEntity.setAuthorizationGrantTypes(registeredClient.getAuthorizationGrantTypes().stream().map(AuthorizationGrantType::getValue).collect(Collectors.toSet()));
+        registeredClientEntity.setRedirectUris(registeredClient.getRedirectUris());
+        registeredClientEntity.setPostLogoutRedirectUris(registeredClient.getPostLogoutRedirectUris());
+        registeredClientEntity.setScopes(registeredClient.getScopes());
+        registeredClientEntity.setTokenSettings(registeredClient.getTokenSettings().getSettings());
+        registeredClientEntity.setClientSettings(registeredClient.getClientSettings().getSettings());
+        registeredClientDomainService.saveClient(registeredClientEntity);
     }
 
     @Override
     public RegisteredClient findById(String id) {
-        SysRegisteredClientDto sysRegisteredClientDetailVo = sysRegisteredClientService.getOneById(id);
-        if (sysRegisteredClientDetailVo == null) {
+        RegisteredClientEntity registeredClientEntity = registeredClientDomainService.getOneById(id);
+        if (registeredClientEntity == null) {
             throw new ClientAuthorizationException(new OAuth2Error(CLIENT_ID_NOT_EXIST_ERROR_CODE,
                     "Authorization client table data id not exist: " + id, null),
                     id);
         }
-        return sysRegisteredClientDetailConvert(sysRegisteredClientDetailVo);
+        return sysRegisteredClientDetailConvert(registeredClientEntity);
     }
 
     @Override
     public RegisteredClient findByClientId(String clientId) {
-        SysRegisteredClientDto sysRegisteredClientDto = sysRegisteredClientService.getOneByClientId(clientId);
-        if (sysRegisteredClientDto == null) {
+        RegisteredClientEntity registeredClientEntity = registeredClientDomainService.getOneByClientId(clientId);
+        if (registeredClientEntity == null) {
             throw new ClientAuthorizationException(new OAuth2Error(CLIENT_ID_NOT_EXIST_ERROR_CODE,
                     "Authorization client id not exist: " + clientId, null),
                     clientId);
         }
-        return sysRegisteredClientDetailConvert(sysRegisteredClientDto);
+        return sysRegisteredClientDetailConvert(registeredClientEntity);
     }
 
     /**
      * sysRegisteredClientDetailVo 转换为 RegisteredClient
      *
-     * @param sysRegisteredClientDto
+     * @param registeredClientEntity
      * @return
      */
-    private RegisteredClient sysRegisteredClientDetailConvert(SysRegisteredClientDto sysRegisteredClientDto) {
+    private RegisteredClient sysRegisteredClientDetailConvert(RegisteredClientEntity registeredClientEntity) {
         RegisteredClient.Builder builder = RegisteredClient
-                .withId(sysRegisteredClientDto.getId())
-                .clientId(sysRegisteredClientDto.getClientId())
-                .clientSecret(sysRegisteredClientDto.getClientSecret())
-                .clientIdIssuedAt(Optional.ofNullable(sysRegisteredClientDto.getClientIdIssuedAt())
+                .withId(registeredClientEntity.getId())
+                .clientId(registeredClientEntity.getClientId())
+                .clientSecret(registeredClientEntity.getClientSecret())
+                .clientIdIssuedAt(Optional.ofNullable(registeredClientEntity.getClientIdIssuedAt())
                         .map(d -> d.atZone(ZoneId.of(ZONED_DATETIME_ZONE_ID)).toInstant())
                         .orElse(null))
-                .clientSecretExpiresAt(Optional.ofNullable(sysRegisteredClientDto.getClientSecretExpiresAt())
+                .clientSecretExpiresAt(Optional.ofNullable(registeredClientEntity.getClientSecretExpiresAt())
                         .map(d -> d.atZone(ZoneId.of(ZONED_DATETIME_ZONE_ID)).toInstant())
                         .orElse(null))
-                .clientName(sysRegisteredClientDto.getClientName())
+                .clientName(registeredClientEntity.getClientName())
                 .clientAuthenticationMethods(c ->
-                        c.addAll(sysRegisteredClientDto.getClientAuthenticationMethods()
+                        c.addAll(registeredClientEntity.getClientAuthenticationMethods()
                                 .stream().map(ClientAuthenticationMethod::new).collect(Collectors.toSet()))
                 ).authorizationGrantTypes(a ->
-                        a.addAll(sysRegisteredClientDto.getAuthorizationGrantTypes()
+                        a.addAll(registeredClientEntity.getAuthorizationGrantTypes()
                                 .stream().map(AuthorizationGrantType::new).collect(Collectors.toSet()))
-                ).redirectUris(r -> r.addAll(sysRegisteredClientDto.getRedirectUris()))
-                .postLogoutRedirectUris(p -> p.addAll(sysRegisteredClientDto.getPostLogoutRedirectUris()))
-                .scopes(s -> s.addAll(sysRegisteredClientDto.getScopes()))
-                .clientSettings(ClientSettings.builder().requireAuthorizationConsent(true).build());// requireAuthorizationConsent(true) 不设置 授权页不会显示
+                ).redirectUris(r -> r.addAll(registeredClientEntity.getRedirectUris()))
+                .postLogoutRedirectUris(p -> p.addAll(registeredClientEntity.getPostLogoutRedirectUris()))
+                .scopes(s -> s.addAll(registeredClientEntity.getScopes()))
+                .clientSettings(ClientSettings.builder().requireAuthorizationConsent(false).build());// requireAuthorizationConsent(true) 不设置 授权页不会显示
 //                .tokenSettings(TokenSettings.builder().build());
         //todo clientSettings和 tokenSettings 根据需要后续自行修改
 //                .clientSettings(ClientSettings.withSettings(sysRegisteredClientDetailVo.getClientSettings()).build());
