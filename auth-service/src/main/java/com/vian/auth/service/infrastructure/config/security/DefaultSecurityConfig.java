@@ -19,6 +19,7 @@ import com.vian.auth.service.infrastructure.config.federation.FederatedIdentityA
 import jakarta.annotation.Resource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -46,12 +47,13 @@ import org.springframework.web.filter.CorsFilter;
 @Configuration(proxyBeanMethods = false)
 public class DefaultSecurityConfig {
 
-//    @Resource
-//    public UserDetailsService userDetailsService;
+    @Resource
+    public UserDetailsService userDetailsService;
 
     // 过滤器链
     @Bean
     public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         http
                 .authorizeHttpRequests(authorize ->//① 配置鉴权的
                         authorize
@@ -64,6 +66,7 @@ public class DefaultSecurityConfig {
                                 .anyRequest().authenticated()//③ 排除忽略的其他url就需要鉴权了
                 )
                 .csrf(AbstractHttpConfigurer::disable)
+                .authenticationProvider(provider)
                 .formLogin(formLogin ->
                         formLogin
                                 .loginPage("/login")//④ 授权服务认证页面（可以配置相对和绝对地址，前后端分离的情况下填前端的url）
@@ -75,7 +78,7 @@ public class DefaultSecurityConfig {
                 );
 
         DefaultSecurityFilterChain build = http.build();
-
+        provider.setUserDetailsService(userDetailsService);
         return build;
     }
 
@@ -85,15 +88,15 @@ public class DefaultSecurityConfig {
     }
 
     // 初始化了一个用户在内存里面（这样就不会每次启动就再去生成密码了）
-    @Bean
-    public UserDetailsService users() {
-        UserDetails user = User.withDefaultPasswordEncoder()
-                .username("user1")
-                .password("password")
-                .roles("USER")
-                .build();
-        return new InMemoryUserDetailsManager(user);
-    }
+//    @Bean
+//    public UserDetailsService users() {
+//        UserDetails user = User.withDefaultPasswordEncoder()
+//                .username("user1")
+//                .password("password")
+//                .roles("USER")
+//                .build();
+//        return new InMemoryUserDetailsManager(user);
+//    }
     @Bean
     public SessionRegistry sessionRegistry() {
         return new SessionRegistryImpl();

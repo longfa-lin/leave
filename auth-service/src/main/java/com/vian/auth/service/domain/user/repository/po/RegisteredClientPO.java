@@ -9,6 +9,7 @@ import com.mybatisflex.annotation.Table;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+import com.mybatisflex.core.handler.FastjsonTypeHandler;
 import com.mybatisflex.core.handler.GsonTypeHandler;
 import com.mybatisflex.core.handler.JacksonTypeHandler;
 import com.mybatisflex.core.keygen.KeyGenerators;
@@ -60,25 +61,25 @@ public class RegisteredClientPO implements Serializable {
     @Schema(description = "")
     private String clientName;
 
-    @Column(typeHandler = GsonTypeHandler.class)
+    @Column(typeHandler = FastjsonTypeHandler.class)
     private Set<String> clientAuthenticationMethods;
 
-    @Column(typeHandler = GsonTypeHandler.class)
+    @Column(typeHandler = FastjsonTypeHandler.class)
     private Set<String> authorizationGrantTypes;
 
-    @Column(typeHandler = GsonTypeHandler.class)
+    @Column(typeHandler = FastjsonTypeHandler.class)
     private Set<String> redirectUris;
 
-    @Column(typeHandler = GsonTypeHandler.class)
+    @Column(typeHandler = FastjsonTypeHandler.class)
     private Set<String> postLogoutRedirectUris;
 
-    @Column(typeHandler = GsonTypeHandler.class)
+    @Column(typeHandler = FastjsonTypeHandler.class)
     private Set<String> scopes;
 
-    @Column(typeHandler = GsonTypeHandler.class)
+    @Column(typeHandler = FastjsonTypeHandler.class)
     private Map<String, Object> clientSettings;
 
-    @Column(typeHandler = GsonTypeHandler.class)
+    @Column(typeHandler = FastjsonTypeHandler.class)
     private Map<String, Object> tokenSettings;
 
 }

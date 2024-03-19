@@ -21,7 +21,7 @@ import java.util.List;
  * @Version: v0.0.1
  * @Edit: Number Date User Remark
  **/
-//@Component
+@Component
 @RequiredArgsConstructor
 public class UserDetailApplicationService implements UserDetailsService {
 
