@@ -262,23 +262,29 @@ public class SwaggerConfig {
 
 #### oauth2相关
 
+##### oauth2相关学习url
+
+https://juejin.cn/post/7279629380749033491
+
+代码：https://github.com/WatermelonPlanet/watermelon-cloud
+
 ##### 关于auth2版本问题
 
 在springboot2中授权服务器依赖为：
 
 ```pom
 <dependency>
-	<groupId>org.springframework.cloud</groupId>
-	<artifactId>spring-cloud-starter-oauth2</artifactId>
+  <groupId>org.springframework.cloud</groupId>
+  <artifactId>spring-cloud-starter-oauth2</artifactId>
 </dependency>
 ```
 
-springboot3中个别spingboot没有提供相应的授权服务器依赖，引入依赖为：
+springboot3中个别spingboot没有提供相应的授权服务器依赖，其跟security绑定在一起，故需要同时集成spirng security,引入依赖为：
 
 ```pom
 <dependency>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-oauth2-authorization-server</artifactId>
+  <groupId>org.springframework.security</groupId>
+  <artifactId>spring-security-oauth2-authorization-server</artifactId>
 </dependency>
 ```
 
@@ -310,3 +316,39 @@ RegisteredClient registeredClient = RegisteredClient.withId(UUID.randomUUID().to
 ##### OAuth2授权流程
 
 ![img_4day_4.png](doc/assets/img_4day_4.png)
+
+##### oauth2 server端配置逻辑
+
+第一步： 引入相应的依赖
+
+第二步： 配置类编写，包括 securityConfig和AuthorizationServerConfig
+
+第三步： 相关页面编写，登录页面、授权页面等
+
+第四步： 测试验证
+
+##### oauth2 用户信息以及注册客户端DB加载获取
+
+第一步： H2相关依赖去除，使用的地方也注释，位于AuthorizationServerConfig类中
+
+第二步： 注释掉初始化RegisteredClientResporitory bean,位于AuthorizationServerConfig
+
+第三步： 注释DefaultSecurityConfig类中关于设置userDetails的bean
+
+第四步： 分别实现两个接口，注入spring容器中，RegisteredClientRepository UserDetailsService 实现用户从数据库中读取以及注册客户端从数据库读取，该具体实现位于com.vian.auth.service.application.service.auth package中
+
+第五步： 在securityConfig类中defaultSecurityFilterChain bean中引入 DaoAuthenticationProvider provider = new DaoAuthenticationProvider();并设置我们实现的userDetailsService
+
+第六步： 测试
+
+##### DaoAuthenticationProvider
+
+`DaoAuthenticationProvider` 是Spring Security中提供的一个认证提供者（AuthenticationProvider），它用于基于数据访问对象（DAO）的认证。这种认证机制通常用于基于用户名和密码的认证流程。
+
+###### 工作原理
+
+当一个认证请求（通常是用户名和密码）到达Spring Security时，`DaoAuthenticationProvider` 会使用配置的 `UserDetailsService` 来加载用户信息。`UserDetailsService` 是一个接口，需要开发者实现 `loadUserByUsername` 方法来从数据库或其他持久层检索用户详情。
+
+一旦用户信息被加载，`DaoAuthenticationProvider` 会比较提供的密码与从 `UserDetailsService` 获取的密码。密码通常是加密存储的，所以 `DaoAuthenticationProvider` 会使用一个 `PasswordEncoder` 来对用户提供的密码进行编码，然后与存储的密码进行比较。
+
+如果两者匹配，认证就会成功，`Authentication` 对象会被创建并填充用户的权限（GrantedAuthority），然后返回给安全上下文（Security Context）。
