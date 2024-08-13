@@ -46,6 +46,11 @@ spring:
       resourceserver:
         jwt:
           issuer-uri: http://172.16.15.245:9090
+  rabbitmq:
+    host: 10.0.189.53
+    port: 5672
+    username: rabbit
+    password: qwerh123
 management:
   endpoints:
     web: #将所有可用的监控指标项对外暴露
