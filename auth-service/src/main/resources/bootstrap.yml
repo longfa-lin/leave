@@ -2,7 +2,7 @@ spring:
   application:
     name: auth-service
   profiles:
-    active: dev-mac
+    active: dev
   cloud:
     nacos:
       config:

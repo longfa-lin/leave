@@ -3,6 +3,7 @@ package com.vian.auth.service;
 import com.mybatisflex.core.audit.AuditManager;
 import com.mybatisflex.core.audit.ConsoleMessageCollector;
 import com.mybatisflex.core.audit.MessageCollector;
+import lombok.NonNull;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -34,7 +35,7 @@ public class AuthApplication implements CommandLineRunner, ApplicationListener<C
     }
 
     @Override
-    public void onApplicationEvent(ContextRefreshedEvent event) {
+    public void onApplicationEvent(@NonNull ContextRefreshedEvent event) {
         System.out.println("onApplicationEvent");
         //开启审计功能
         AuditManager.setAuditEnable(true);

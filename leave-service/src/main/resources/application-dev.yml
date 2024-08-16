@@ -38,7 +38,7 @@ spring:
       eager: true
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://10.0.148.133:30346/db_leave?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&tinyInt1isBit=false
+    url: jdbc:mysql://single.mysql.cn:3306/db_leave?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&tinyInt1isBit=false
     username: root
     password: 1qazxsw2
   security:
@@ -47,7 +47,7 @@ spring:
         jwt:
           issuer-uri: http://172.16.15.245:9090
   rabbitmq:
-    host: 10.0.189.53
+    host: single.rabbitmq.cn
     port: 5672
     username: rabbit
     password: qwerh123

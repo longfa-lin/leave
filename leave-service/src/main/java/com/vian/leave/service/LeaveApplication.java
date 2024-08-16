@@ -3,13 +3,17 @@ package com.vian.leave.service;
 import com.mybatisflex.core.audit.AuditManager;
 import com.mybatisflex.core.audit.ConsoleMessageCollector;
 import com.mybatisflex.core.audit.MessageCollector;
+import lombok.NonNull;
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
+import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.ApplicationListener;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.event.ContextRefreshedEvent;
 
 /**
@@ -30,11 +34,11 @@ public class LeaveApplication implements CommandLineRunner, ApplicationListener<
     }
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
     }
 
     @Override
-    public void onApplicationEvent(ContextRefreshedEvent event) {
+    public void onApplicationEvent(@NonNull ContextRefreshedEvent event) {
         System.out.println("onApplicationEvent");
         //开启审计功能
         AuditManager.setAuditEnable(true);
@@ -42,5 +46,10 @@ public class LeaveApplication implements CommandLineRunner, ApplicationListener<
         //设置 SQL 审计收集器
         MessageCollector collector = new ConsoleMessageCollector();
         AuditManager.setMessageCollector(collector);
+    }
+
+    @Bean
+    MessageConverter createMessageConverter() {
+        return new Jackson2JsonMessageConverter();
     }
 }

@@ -352,3 +352,6 @@ RegisteredClient registeredClient = RegisteredClient.withId(UUID.randomUUID().to
 一旦用户信息被加载，`DaoAuthenticationProvider` 会比较提供的密码与从 `UserDetailsService` 获取的密码。密码通常是加密存储的，所以 `DaoAuthenticationProvider` 会使用一个 `PasswordEncoder` 来对用户提供的密码进行编码，然后与存储的密码进行比较。
 
 如果两者匹配，认证就会成功，`Authentication` 对象会被创建并填充用户的权限（GrantedAuthority），然后返回给安全上下文（Security Context）。
+
+#### rabbitmq
+入门url:https://cloud.tencent.com/developer/article/2226303
