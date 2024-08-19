@@ -1,10 +1,8 @@
 package com.vian.leave.service.infrastructure.rabbitmq.direct;
 
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,8 +18,6 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 @Slf4j
 public class RoutingListener {
-    @NonNull
-    private RabbitTemplate rabbitTemplate;
 
     @RabbitListener(queues = "routingFirstQueue")
     public void routingFirstListener(String message) {
