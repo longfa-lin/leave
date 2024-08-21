@@ -15,23 +15,29 @@ public class SocketIOEventListener {
     @Autowired
     public SocketIOEventListener(SocketIOServer socketIOServer) {
         this.socketIOServer = socketIOServer;
-        this.socketIOServer.addConnectListener(onConnect());
-        this.socketIOServer.addDisconnectListener(onDisconnect());
-        this.socketIOServer.addEventListener("message", String.class, onMessage());
+        // 默认命名空间
+//        socketIOServer.addConnectListener(onConnect("/"));
+//        socketIOServer.addDisconnectListener(onDisconnect("/"));
+//        socketIOServer.addEventListener("message", String.class, onMessage("/"));
+
+        // 自定义的 chat 命名空间
+        socketIOServer.addNamespace("/chat").addConnectListener(onConnect("/chat"));
+        socketIOServer.addNamespace("/chat").addDisconnectListener(onDisconnect("/chat"));
+        socketIOServer.addNamespace("/chat").addEventListener("message", String.class, onMessage("/chat"));
     }
 
-    private ConnectListener onConnect() {
-        return socketIOClient -> System.out.println("Client connected: " + socketIOClient.getSessionId());
+    private ConnectListener onConnect(String namespace) {
+        return socketIOClient -> System.out.println("Client connected to " + namespace + ": " + socketIOClient.getSessionId());
     }
 
-    private DisconnectListener onDisconnect() {
-        return socketIOClient -> System.out.println("Client disconnected: " + socketIOClient.getSessionId());
+    private DisconnectListener onDisconnect(String namespace) {
+        return socketIOClient -> System.out.println("Client disconnected from " + namespace + ": " + socketIOClient.getSessionId());
     }
 
-    private DataListener<String> onMessage() {
+    private DataListener<String> onMessage(String namespace) {
         return (socketIOClient, data, ackSender) -> {
-            System.out.println("Received message: " + data);
-            socketIOClient.sendEvent("message", "Received your message: " + data);
+            System.out.println("Message from " + namespace + ": " + data);
+            socketIOClient.getNamespace().getBroadcastOperations().sendEvent("message", "Received your message: " + data);
         };
     }
 }

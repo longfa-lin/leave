@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Socket.IO Namespaces</title>
+    <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // 连接到默认命名空间
+            // const socketDefault = io('http://localhost:19092');
+            //
+            // socketDefault.on('connect', () => {
+            //     console.log('Connected to default namespace');
+            //     socketDefault.emit('message', 'Hello from default namespace!');
+            // });
+            //
+            // socketDefault.on('message', (data) => {
+            //     console.log('Default namespace message:', data);
+            // });
+
+            // 连接到自定义的 chat 命名空间
+            const socketChat = io('http://localhost:19092/chat');
+
+            socketChat.on('connect', () => {
+                console.log('Connected to chat namespace');
+                socketChat.emit('message', 'Hello from chat namespace!');
+            });
+
+            socketChat.on('message', (data) => {
+                console.log('Chat namespace message:', data);
+            });
+        });
+    </script>
+</head>
+<body>
+<h1>Socket.IO Namespaces Example</h1>
+</body>
+</html>

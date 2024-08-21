@@ -4,8 +4,8 @@ import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.DirectExchange;
 import org.springframework.amqp.core.Queue;
-import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 /**
  * @Description: TODO
@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Bean;
  * @Version: v0.0.1
  * @Edit: Number Date User Remark
  **/
-@Configurable
+@Configuration
 public class DirectConfig {
     @Bean
     public Queue routingFirstQueue() {

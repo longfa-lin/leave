@@ -4,8 +4,8 @@ import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.FanoutExchange;
 import org.springframework.amqp.core.Queue;
-import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 
 /**
@@ -16,12 +16,13 @@ import org.springframework.context.annotation.Bean;
  * @Version: v0.0.1
  * @Edit: Number Date User Remark
  **/
-@Configurable
+@Configuration
 public class FanoutConfig {
 
     @Bean
     public FanoutExchange fanoutExchange() {
-        return new FanoutExchange("PUBLISH_SUBSCRIBE_EXCHANGE");
+        FanoutExchange publishSubscribeExchange = new FanoutExchange("PUBLISH_SUBSCRIBE_EXCHANGE");
+        return publishSubscribeExchange;
     }
 
     @Bean

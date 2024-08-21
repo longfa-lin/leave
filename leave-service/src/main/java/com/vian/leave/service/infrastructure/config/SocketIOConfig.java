@@ -12,7 +12,7 @@ public class SocketIOConfig {
 
         Configuration config = new Configuration();
         config.setHostname("localhost");
-        config.setPort(9092);
+        config.setPort(19092);
 
         return new SocketIOServer(config);
     }
