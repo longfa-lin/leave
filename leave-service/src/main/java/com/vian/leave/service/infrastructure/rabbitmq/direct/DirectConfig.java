@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * @Description: TODO
+ * @Description: 路由模式
  * @ClassName: DirectConfig
  * @Author: lin long fa
  * @Date: 2024-08-16 18:13:14
@@ -17,24 +17,25 @@ import org.springframework.context.annotation.Configuration;
  **/
 @Configuration
 public class DirectConfig {
+
+    @Bean
+    public DirectExchange routingExchange() {
+        return new DirectExchange("routingExchange", true, false);
+    }
+
     @Bean
     public Queue routingFirstQueue() {
-        return new Queue("routingFirstQueue");
+        return new Queue("routingFirstQueue", true);
     }
 
     @Bean
     public Queue routingSecondQueue() {
-        return new Queue("routingSecondQueue");
+        return new Queue("routingSecondQueue", true);
     }
 
     @Bean
     public Queue routingThirdQueue() {
-        return new Queue("routingThirdQueue");
-    }
-
-    @Bean
-    public DirectExchange routingExchange() {
-        return new DirectExchange("routingExchange");
+        return new Queue("routingThirdQueue", true);
     }
 
     @Bean
