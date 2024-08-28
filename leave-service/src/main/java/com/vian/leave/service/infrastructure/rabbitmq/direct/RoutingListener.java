@@ -30,6 +30,8 @@ public class RoutingListener {
         try {
             // 处理消息
             System.out.println("【routing first】" + message);
+            // 设置不公平分发
+            channel.basicQos(1);
             // 手动确认消息
             channel.basicAck(deliveryTag, false);
         } catch (Exception e) {
