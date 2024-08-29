@@ -11,6 +11,7 @@ import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.Date;
 
 /**
  * @Description: TODO
@@ -49,8 +50,13 @@ public class RoutingListener {
         System.out.println("【routing second】" + message);
     }
 
-    @RabbitListener(queues = "routingThirdQueue")
-    public void routingThirdListener(String message) {
-        System.out.println("【routing third】" + message);
+//    @RabbitListener(queues = "routingThirdQueue")
+//    public void routingThirdListener(String message) {
+//        System.out.println("【routing third】" + message);
+//    }
+
+    @RabbitListener(queues = "deadLetterQueue")
+    public void deadLetterListener(String message) {
+        log.info("当前时间：{},收到死信队列信息{}", new Date().toString(), message);
     }
 }

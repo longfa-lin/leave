@@ -6,9 +6,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.MessageDeliveryMode;
 import org.springframework.amqp.core.MessagePostProcessor;
 import org.springframework.amqp.core.MessageProperties;
+import org.springframework.amqp.rabbit.connection.CorrelationData;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
 
 /**
  * @Description: TODO
@@ -27,14 +30,21 @@ public class Routing {
     private RabbitTemplate rabbitTemplate;
 
     public String routingFirst() {
+        log.info("当前时间：{},发送一条信息给两个 TTL 队列", new Date());
         MessagePostProcessor messagePostProcessor = message -> {
             message.getMessageProperties().setDeliveryMode(MessageDeliveryMode.PERSISTENT);
+            message.getMessageProperties().setExpiration("10000");
             return message;
         };
         // 使用不同的routingKey 转发到不同的队列
         rabbitTemplate.convertAndSend("routingExchange", "firstRouting", " first routing message", messagePostProcessor);
         rabbitTemplate.convertAndSend("routingExchange", "secondRouting", " second routing message", messagePostProcessor);
         rabbitTemplate.convertAndSend("routingExchange", "thirdRouting", " third routing message", messagePostProcessor);
+        rabbitTemplate.convertAndSend("routingExchange", "thirdRouting", " third routing message", message->{
+            message.getMessageProperties().setDeliveryMode(MessageDeliveryMode.PERSISTENT);
+            message.getMessageProperties().setExpiration("5000");
+            return message;
+        });
         return "ok";
     }
 }
