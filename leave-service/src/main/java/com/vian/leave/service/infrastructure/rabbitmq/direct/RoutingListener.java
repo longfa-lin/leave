@@ -52,7 +52,8 @@ public class RoutingListener {
 
 //    @RabbitListener(queues = "routingThirdQueue")
 //    public void routingThirdListener(String message) {
-//        System.out.println("【routing third】" + message);
+//        log.info("【routing third】，当前时间：{},收到延时队列的消息：{}", new Date().toString(), message);
+////        System.out.println("【routing third】" + message);
 //    }
 
     @RabbitListener(queues = "deadLetterQueue")

@@ -36,4 +36,10 @@ public class TestController {
         routing.routingFirst();
         return "success";
     }
+
+    @GetMapping("/testDirectRoutings")
+    public String testDirectRoutings() {
+        routing.notRoutingReturnToExchange();
+        return "success";
+    }
 }

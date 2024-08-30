@@ -43,6 +43,15 @@ public class DirectConfig {
     }
 
     @Bean
+    public CustomExchange routingDelayedExchange() {
+        HashMap<String, Object> args = new HashMap<>();
+        //自定义交换机的类型
+        args.put("x-delayed-type", "direct");
+        return new CustomExchange("routingDelayedExchange", "x-delayed-message", true, false, args);
+//        return new DirectExchange("routingExchange", true, false);
+    }
+
+    @Bean
     public DirectExchange deadLetterExchange() {
         return new DirectExchange(DEAD_LETTER_EXCHANGE, true, false);
     }
@@ -59,7 +68,7 @@ public class DirectConfig {
 
     @Bean
     public Queue routingThirdQueue() {
-        Map<String, Object> args = new HashMap<>(3);
+        Map<String, Object> args = new HashMap<>(2);
         //声明当前队列绑定的死信交换机
         args.put("x-dead-letter-exchange", DEAD_LETTER_EXCHANGE);
         //声明当前队列的死信路由 key
@@ -88,7 +97,7 @@ public class DirectConfig {
 
     @Bean
     public Binding routingThirdBind() {
-        return BindingBuilder.bind(routingThirdQueue()).to(routingExchange()).with("thirdRouting");
+        return BindingBuilder.bind(routingThirdQueue()).to(routingDelayedExchange()).with("thirdRouting").noargs();
     }
 
     @Bean
@@ -108,12 +117,6 @@ public class DirectConfig {
     @Bean
     public RabbitTemplate rabbitTemplate(CachingConnectionFactory connectionFactory) {
         RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
-//        rabbitTemplate.setReturnsCallback(returned -> {
-//            log.error("消息：{}，被交换机 {} 退回，原因：{}，路由key：{},code:{}",
-//                    new String(returned.getMessage().getBody()), returned.getExchange(),
-//                    returned.getReplyText(), returned.getRoutingKey(),
-//                    returned.getReplyCode());
-//        });
         rabbitTemplate.setConfirmCallback((correlationData, ack, cause) -> {
             if (ack) {
                 System.out.println("Message successfully delivered to the exchange");
@@ -121,6 +124,11 @@ public class DirectConfig {
                 System.err.println("Failed to deliver message to the exchange: " + cause);
             }
         });
+        /**
+         * true：交换机无法将消息进行路由时，会将该消息返回给生产者
+         * false：如果发现消息无法进行路由，则直接丢弃
+         */
+        rabbitTemplate.setMandatory(true);
         rabbitTemplate.setReturnsCallback(returned -> {
             System.err.println("Message returned: " + new String(returned.getMessage().getBody()));
             System.err.println("Returned reply code: " + returned.getReplyCode());

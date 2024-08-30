@@ -51,6 +51,8 @@ spring:
     port: 5672
     username: rabbit
     password: qwerh123
+    publisher-returns: true
+    publisher-confirm-type: correlated
 management:
   endpoints:
     web: #将所有可用的监控指标项对外暴露
