@@ -1,4 +1,8 @@
 
+CREATE SEQUENCE sys_user_id_seq
+    START WITH 1
+    INCREMENT BY 1;
+
 DROP TABLE IF EXISTS sys_user;
 CREATE TABLE sys_user (
   create_time timestamp(6) NOT NULL DEFAULT timezone('UTC-8'::text, (now())::timestamp(0) without time zone),

@@ -8,7 +8,7 @@ CREATE TABLE oauth2_authorization
     authorization_grant_type      varchar(100) NOT NULL,
     authorized_scopes             varchar(1000) DEFAULT NULL,
     attributes                    bytea,
-    state                         varchar(500)  DEFAULT NULL:: character varying,
+    state                         varchar(500)  DEFAULT NULL,
     authorization_code_value      bytea,
     authorization_code_issued_at  timestamp(6),
     authorization_code_expires_at timestamp(6),

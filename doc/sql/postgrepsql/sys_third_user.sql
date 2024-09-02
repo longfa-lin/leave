@@ -1,3 +1,7 @@
+CREATE SEQUENCE sys_third_user_id_seq
+    START WITH 1
+    INCREMENT BY 1;
+
 
 DROP TABLE IF EXISTS sys_third_user;
 CREATE TABLE sys_third_user (
