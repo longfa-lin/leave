@@ -13,7 +13,7 @@ spring:
 #    driver-class-name: com.mysql.cj.jdbc.Driver
 #    url: jdbc:mysql://single.mysql.cn:3306/db_leave?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&tinyInt1isBit=false
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://single.mysql.cn:5432/db_auth?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    url: jdbc:postgresql://single.postgresql.cn:5432/db_auth?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
     username: root
     password: 1qazxsw2
   security:
