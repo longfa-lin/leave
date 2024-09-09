@@ -21,14 +21,19 @@ public class SecurityConfig {
     @Bean
     public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
         http
+                // 配置授权交换规则
                 .authorizeExchange(authorize -> authorize
+                        // 要求所有请求都经过身份验证
                         .anyExchange().authenticated()
                 )
+                // 启用OAuth2登录，并使用默认配置   实际上配置了一个 OAuth2LoginAuthenticationWebFilter，
+                // 这个过滤器附加到过滤器链中，在需要时处理相关的OAuth2身份验证。
                 .oauth2Login(withDefaults())
-//                .oauth2Client(withDefaults())
+                // 启用OAuth2客户端功能
+                .oauth2Client(withDefaults())
+                // 启用登出功能，并使用默认配置
                 .logout(withDefaults());
+        // 构建并返回ServerHttpSecurity对象
         return http.build();
     }
-
-
 }
