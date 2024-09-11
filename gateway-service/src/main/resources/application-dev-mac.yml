@@ -2,15 +2,19 @@ server:
   port: 9092
 spring:
   cloud:
+    inetutils:
+      #ignored-interfaces: 'VMware Virtual Ethernet Adapter for VMnet1,VMware Virtual Ethernet Adapter for VMnet8'
+      timeout-seconds: 1
+      preferred-networks: 192.168
     nacos:
       discovery:
-        server-addr: single.nacos.cn:8848
+        server-addr: 10.0.189.53:8848
         username: nacos
         password: 1qazxsw2
         namespace: DEV
     sentinel:
       transport:
-        dashboard: single.sentinel.cn:8858
+        dashboard: 10.0.189.53:8858
         client-ip: 192.168.0.102
       datasource:
         gw-flow:
@@ -61,7 +65,7 @@ spring:
             - RequestLogging
             - ResponseLogging
             - TokenRelay=
-#        - id: auth-service
+  #        - id: auth-service
 #          uri: lb://auth-service
 #          predicates:
 #            - Path=/auth/**
@@ -82,7 +86,7 @@ spring:
             client-name: messaging-client-oidc
         provider:
           spring:
-            issuer-uri: http://192.168.0.102:9090 #这个不要和客户端ip一致 不然玩不了
+            issuer-uri: http://192.168.0.103:9090 #这个不要和客户端ip一致 不然玩不了
 
 knife4j:
   # 聚合swagger文档

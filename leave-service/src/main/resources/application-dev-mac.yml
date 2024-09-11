@@ -5,16 +5,18 @@ spring:
   cloud:
     # 该配置解决启动报 Cannot determine local hostname错误问题
     inetutils:
-      ignored-interfaces: 'TAP-Windows Adapter V9'
+      #ignored-interfaces: 'VMware Virtual Ethernet Adapter for VMnet1,VMware Virtual Ethernet Adapter for VMnet8'
+      timeout-seconds: 1
+      preferred-networks: 192.168
     nacos:
       discovery:
-        server-addr: single.nacos.cn:8848
+        server-addr: 10.0.189.53:8848
         username: nacos
         password: 1qazxsw2
         namespace: DEV
     sentinel:
       transport:
-        dashboard: single.sentinel.cn:8858
+        dashboard: 10.0.189.53:8858
         client-ip: 192.168.0.102
       datasource:
         flow:
@@ -38,14 +40,21 @@ spring:
       eager: true
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://10.0.148.133:30346/db_leave?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&tinyInt1isBit=false
+    url: jdbc:mysql://10.0.189.37:3306/db_leave?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&tinyInt1isBit=false
     username: root
     password: 1qazxsw2
   security:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://192.168.0.102:9090
+          issuer-uri: http://192.168.0.103:9090
+  rabbitmq:
+    host: 10.0.189.37
+    port: 5672
+    username: rabbit
+    password: qwerh123
+    publisher-returns: true
+    publisher-confirm-type: correlated
 management:
   endpoints:
     web: #将所有可用的监控指标项对外暴露

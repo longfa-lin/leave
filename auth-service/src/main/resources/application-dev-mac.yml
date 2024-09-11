@@ -3,15 +3,21 @@ server:
 
 spring:
   cloud:
+    inetutils:
+      #ignored-interfaces: 'VMware Virtual Ethernet Adapter for VMnet1,VMware Virtual Ethernet Adapter for VMnet8'
+      timeout-seconds: 1
+      preferred-networks: 192.168
     nacos:
       discovery:
-        server-addr: single.nacos.cn:8848
+        server-addr: 10.0.189.53:8848
         username: nacos
         password: 1qazxsw2
         namespace: DEV
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://10.0.148.133:30346/db_leave?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&tinyInt1isBit=false
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://10.0.189.53:3306/db_leave?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&tinyInt1isBit=false
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://10.0.189.37:5432/db_auth?currentSchema=public&autoReconnect=true&stringtype=unspecified
     username: root
     password: 1qazxsw2
   security:

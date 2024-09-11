@@ -2,7 +2,7 @@ spring:
   application:
     name: leave-service
   profiles:
-    active: dev
+    active: dev-mac
   cloud:
     nacos:
       config:

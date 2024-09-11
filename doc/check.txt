@@ -1,0 +1,1 @@
+http://127.0.0.1:9090/oauth2/authorize?client_id=messaging-client&response_type=code&scope=profile+openid&redirect_uri=http://127.0.0.1:9092/login/oauth2/code/messaging-client-oidc
