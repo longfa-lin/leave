@@ -33,6 +33,16 @@ sentinel流控和熔断处理，blockHandler和fallback
 blockHandler优先级高于fallback，即设置了blockHandler之后，设置fallback无效
 但是fallback可用于处理特定异常的弥补程序
 
+#### spring security
+```text
+SpringSecurity会缓存登录前的上一次请求在session中，在登录成功后，跳往该请求。
+如果用 http://172.16.15.245:9090/doc.html进行访问跳转验证，由于回调地址配置的是127.0.0.1的ip，会出现cookie问题,所以需要用http://127.0.0.1:9090/doc.html进行访问
+否则会出现频繁创建 webSession的问题
+由于第一次请求是 http://172.16.15.245:9090/doc.html，到登录时变成了 http://172.16.15.245:9090/login#/home，登录成功后回调又变成127.0.0.1:9092的地址
+大家都知道session是根据cookie中的jsessonid来寻找的，由于ip和端口变了，http://127.0.0.1:9092 自然不会携带http://172.16.15.245:9090的cookie，
+所以登录后的session就不是 http://172.16.15.245:9090/oauth2/authorize 当时缓存上一次请求的session
+```
+
 #### gateway
 
 ##### gateway-sentinel-nacos实现网关限流

@@ -42,25 +42,26 @@ public class SecurityConfig {
                 // 启用OAuth2客户端功能
 //                .oauth2Client(withDefaults())
                 // 启用登出功能，并使用默认配置
-                .logout(withDefaults());
+                .logout(withDefaults())
+                .csrf(withDefaults());
         // 配置跨域策略，例如允许所有跨域访问
-        http.cors(cors -> cors.configurationSource(corsConfigurationSource()));
+//        http.cors(cors -> cors.configurationSource(corsConfigurationSource()));
 
         // 为了调试问题，可以配置详细的日志记录（可选）
-        http.securityContextRepository(new WebSessionServerSecurityContextRepository());
+//        http.securityContextRepository(new WebSessionServerSecurityContextRepository());
 
         return http.build();
     }
 
-    @Bean
-    CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-        configuration.addAllowedOrigin("http://localhost:9092"); // 根据具体需求进行配置
-        configuration.addAllowedMethod("*");
-        configuration.addAllowedHeader("*");
-        configuration.setAllowCredentials(true);
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
-        return source;
-    }
+//    @Bean
+//    CorsConfigurationSource corsConfigurationSource() {
+//        CorsConfiguration configuration = new CorsConfiguration();
+//        configuration.addAllowedOrigin("http://localhost:9092"); // 根据具体需求进行配置
+//        configuration.addAllowedMethod("*");
+//        configuration.addAllowedHeader("*");
+//        configuration.setAllowCredentials(true);
+//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+//        source.registerCorsConfiguration("/**", configuration);
+//        return source;
+//    }
 }

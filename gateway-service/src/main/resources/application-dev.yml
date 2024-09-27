@@ -1,6 +1,9 @@
 server:
   port: 9092
 spring:
+  webflux:
+    session:
+      timeout: 1h
   cloud:
     nacos:
       discovery:
