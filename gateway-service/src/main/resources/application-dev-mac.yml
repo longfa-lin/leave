@@ -15,7 +15,7 @@ spring:
     sentinel:
       transport:
         dashboard: 10.0.189.53:8858
-        client-ip: 192.168.0.102
+        client-ip: 192.168.0.103
       datasource:
         gw-flow:
           nacos:
