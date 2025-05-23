@@ -7,14 +7,14 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: single.nacos.cn:8848
+        server-addr: 8.138.251.178:8848
         username: nacos
         password: 1qazxsw2
 #        namespace: DEV
     sentinel:
       transport:
         dashboard: single.sentinel.cn:8858
-        client-ip: 172.16.15.245
+        client-ip: 10.0.8.7
       datasource:
         gw-flow:
           nacos:
@@ -86,7 +86,7 @@ spring:
 
         provider:
           spring:
-            issuer-uri: http://172.16.15.245:9090 #这个不要和客户端ip一致 不然玩不了
+            issuer-uri: http://10.0.8.7:9090 #这个不要和客户端ip一致 不然玩不了
 
 knife4j:
   # 聚合swagger文档

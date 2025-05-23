@@ -5,7 +5,7 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: single.nacos.cn:8848
+        server-addr: 8.138.251.178:8848
         username: nacos
         password: 1qazxsw2
 #        namespace: DEV
@@ -13,9 +13,10 @@ spring:
 #    driver-class-name: com.mysql.cj.jdbc.Driver
 #    url: jdbc:mysql://single.mysql.cn:3306/db_leave?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&tinyInt1isBit=false
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://single.postgresql.cn:5432/db_auth?currentSchema=public&autoReconnect=true&stringtype=unspecified
-    username: root
-    password: 1qazxsw2
+#    url: jdbc:postgresql://single.postgresql.cn:5432/db_auth?currentSchema=public&autoReconnect=true&stringtype=unspecified
+    url: jdbc:postgresql://pgm-wz9d0rl1p7636xv12o.pg.rds.aliyuncs.com:5432/db_auth?currentSchema=public&autoReconnect=true&stringtype=unspecified
+    username: postgres
+    password: qwerH123
   security:
     oauth2:
       client:
@@ -39,7 +40,7 @@ spring:
             # 客户端秘钥，使用自己的gitee的客户端秘钥
             client-secret: 8c6df920482a83d4662a34b76a9c3a62c8e80713e4f2957bb0459c3ceb70d73b
             # 回调地址 与gitee 配置的回调地址一致才行
-            redirect-uri: http://172.16.15.245:9090/login/oauth2/code/gitee
+            redirect-uri: http://10.0.8.7:9090/login/oauth2/code/gitee
             # 申请scope列表
             scope:
               - emails

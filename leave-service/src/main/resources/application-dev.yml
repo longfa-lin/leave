@@ -8,14 +8,14 @@ spring:
       ignored-interfaces: 'TAP-Windows Adapter V9'
     nacos:
       discovery:
-        server-addr: single.nacos.cn:8848
+        server-addr: 8.138.251.178:8848
         username: nacos
         password: 1qazxsw2
 #        namespace: DEV
     sentinel:
       transport:
         dashboard: single.sentinel.cn:8858
-        client-ip: 172.16.15.245
+        client-ip: 10.0.8.7
       datasource:
         flow:
           nacos:
@@ -38,14 +38,14 @@ spring:
       eager: true
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://single.mysql.cn:3306/db_leave?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&tinyInt1isBit=false
+    url: jdbc:mysql://rm-wz9ety48577lltv59mo.mysql.rds.aliyuncs.com:3306/db_leave?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&tinyInt1isBit=false
     username: root
-    password: 1qazxsw2
+    password: qwerH123
   security:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://172.16.15.245:9090
+          issuer-uri: http://10.0.8.7:9090
   rabbitmq:
     host: single.rabbitmq.cn
     port: 5672
